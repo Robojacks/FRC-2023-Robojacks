@@ -9,18 +9,15 @@ package frc.robot;
 
 // import Xbox Controller and related buttons and axes
 import edu.wpi.first.wpilibj.XboxController;
+
 import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
-
-// import limelight
-import frc.robot.subsystems.vision.Limelight;
-import frc.robot.subsystems.vision.AimTarget;
-
 
 // import commands
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.GoToTarget;
 
 // import RevDrivetrain subsystem
 import frc.robot.subsystems.RevDrivetrain;
@@ -43,8 +40,8 @@ public class RobotContainer {
   // Drive Subsystem
   private final RevDrivetrain rDrive = new RevDrivetrain();
 
-  // limelight subsystem
-  private final Limelight limelight = new Limelight();
+  // update PID values
+  private final Update update = new Update();
 
   /* --- Default Commands --- */
 
@@ -73,15 +70,16 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // vision correction
-    new JoystickButton(xbox, kX.value)
-    .whileTrue(new AimTarget(limelight, rDrive));
+    new JoystickButton(xbox, kA.value)
+    .whileTrue(new GoToTarget(rDrive));
 
   }
 
   public void init() {
-    limelight.driverMode();
-    limelight.lightOff();
-    limelight.PiPSecondaryStream();
+  }
+
+  public void periodic() {
+    update.periodic();
   }
 
   /**
