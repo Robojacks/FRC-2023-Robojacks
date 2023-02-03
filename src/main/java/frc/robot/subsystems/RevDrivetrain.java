@@ -8,12 +8,15 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.*;
+
+import java.util.function.BooleanSupplier;
 
 
 public class RevDrivetrain extends SubsystemBase {
@@ -26,10 +29,33 @@ public class RevDrivetrain extends SubsystemBase {
 
   private DifferentialDrive roboDrive = new DifferentialDrive(LFrontWheel, RFrontWheel);
 
+  private RelativeEncoder leftEncoder = LFrontWheel.getEncoder();
+  private RelativeEncoder rightEncoder = RFrontWheel.getEncoder();
+
+
   public RevDrivetrain() {
     
     LRearWheel.follow(LFrontWheel);
     RRearWheel.follow(RFrontWheel);
+  }
+
+ /* public void moveDistance (double distance) {
+
+    leftEncoder.setPosition(0);
+    new RunCommand = LFrontWheel.set(.1);
+    leftEncoder.getPosition();
+  }*/
+
+  public RelativeEncoder getLeftEncoder () {
+    return leftEncoder;
+  }
+
+  public RelativeEncoder getRightEncoder () {
+    return rightEncoder;
+  }
+
+  public Boolean isEncoderAtPosition (double position) {
+      return leftEncoder.getPosition() >= position;
   }
 
   public double deadband(double JoystickValue, double DeadbandCutOff) {

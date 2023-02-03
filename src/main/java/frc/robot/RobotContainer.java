@@ -17,6 +17,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoMoveAndBalance;
 import frc.robot.commands.GoToTarget;
 
 // import RevDrivetrain subsystem
@@ -42,6 +43,8 @@ public class RobotContainer {
 
   // update PID values
   private final Update update = new Update();
+
+  private final AutoMoveAndBalance autoMoveAndBalance = new AutoMoveAndBalance();
 
   /* --- Default Commands --- */
 
@@ -82,6 +85,9 @@ public class RobotContainer {
     update.periodic();
   }
 
+  public Command getAutonomousCommand() {
+    return autoMoveAndBalance;
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
