@@ -40,4 +40,7 @@ public final class Constants {
     // How far from the target we want to be
     public static final double goalRangeMeters = Units.inchesToMeters(3);
 
+	// how many rotations the wheels move in autonomous
+	public static final double goalEncoderRotations = 10;
+
 }
