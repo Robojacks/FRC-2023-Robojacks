@@ -26,7 +26,7 @@ public class GoToTarget extends CommandBase {
   PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
 
   // PID constants should be tuned per robot
-  final double linearP = 1;
+  final double linearP = 1.0;
   final double linearD = 0.0;
   PIDController forwardController = new PIDController(linearP, 0, linearD);
 

@@ -32,12 +32,13 @@ public final class Constants {
 
 	// Constants such as camera and target height stored. Change per robot and goal!
     public static final double cameraHeightMeters = Units.inchesToMeters(8.5);
-    public static final double targetHeightMeters = Units.inchesToMeters(25);
+    public static final double targetHeightMeters = Units.inchesToMeters(33.7);
     
 	// Angle between horizontal and the camera.
     public static final double cameraPitchRadians = Units.degreesToRadians(47);
 
     // How far from the target we want to be
+	// found experimentally that this goal range has a tolerance of plus or minus 4 inches (tested with range of 24 inches)
     public static final double goalRangeMeters = Units.inchesToMeters(24);
 
 	// how many rotations the wheels move in autonomous
