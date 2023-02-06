@@ -41,11 +41,6 @@ public class RobotContainer {
   // Drive Subsystem
   private final RevDrivetrain rDrive = new RevDrivetrain();
 
-  // update PID values
-  private final Update update = new Update();
-
-  private final AutoMoveAndBalance autoMoveAndBalance = new AutoMoveAndBalance();
-
   /* --- Default Commands --- */
 
   // drive with controller 
@@ -82,11 +77,10 @@ public class RobotContainer {
   }
 
   public void periodic() {
-    update.periodic();
   }
 
   public Command getAutonomousCommand() {
-    return autoMoveAndBalance;
+    return new AutoMoveAndBalance(rDrive);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

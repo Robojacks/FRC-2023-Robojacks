@@ -55,8 +55,9 @@ public class RevDrivetrain extends SubsystemBase {
   }
 
   public Boolean isEncoderAtPosition (double position) {
-      return leftEncoder.getPosition() >= position;
+      return leftEncoder.getPosition() >= position | rightEncoder.getPosition() >= position;
   }
+
 
   public double deadband(double JoystickValue, double DeadbandCutOff) {
     double deadbandreturn;

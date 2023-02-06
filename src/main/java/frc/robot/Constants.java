@@ -38,9 +38,10 @@ public final class Constants {
     public static final double cameraPitchRadians = Units.degreesToRadians(47);
 
     // How far from the target we want to be
-    public static final double goalRangeMeters = Units.inchesToMeters(3);
+    public static final double goalRangeMeters = Units.inchesToMeters(24);
 
 	// how many rotations the wheels move in autonomous
-	public static final double goalEncoderRotations = 10;
+	// 10 input rotations for every 1 real rotation
+	public static final double goalEncoderRotations = 1 * 10;
 
 }

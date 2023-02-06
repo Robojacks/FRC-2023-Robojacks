@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.RevDrivetrain;
 
 // import constants
@@ -19,18 +20,21 @@ import static frc.robot.Constants.*;
 public class AutoMoveAndBalance extends SequentialCommandGroup {
 
   // Drive Subsystem
-  private final RevDrivetrain rDrive = new RevDrivetrain();
+  private final RevDrivetrain rDrive;
 
   /** Creates a new MoveAndBalance. */
-  public AutoMoveAndBalance() {
+  public AutoMoveAndBalance(RevDrivetrain drive) {
 
+    rDrive = drive;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> rDrive.getLeftEncoder().getPosition(), rDrive),
-      new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(.1, .1), rDrive)
-      .until(() -> rDrive.isEncoderAtPosition(goalEncoderRotations))
+      new InstantCommand(() -> rDrive.getLeftEncoder().setPosition(0), rDrive),
+      new InstantCommand(() -> rDrive.getRightEncoder().setPosition(0), rDrive),
+      new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(.3, -.3), rDrive)
+      .until(() -> rDrive.isEncoderAtPosition(goalEncoderRotations)),
+      new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(0, 0), rDrive)
     );
   }
 }
