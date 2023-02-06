@@ -17,6 +17,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
 import frc.robot.commands.GoToTarget;
 
@@ -25,6 +26,8 @@ import frc.robot.subsystems.RevDrivetrain;
 
 // import constants
 import static frc.robot.Constants.*;
+
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -70,6 +73,10 @@ public class RobotContainer {
     // vision correction
     new JoystickButton(xbox, kA.value)
     .whileTrue(new GoToTarget(rDrive));
+
+    //auto balance, only used when on slanted surface
+    new JoystickButton(xbox, kY.value)
+    .whileTrue(new AutoBalance(rDrive));
 
   }
 

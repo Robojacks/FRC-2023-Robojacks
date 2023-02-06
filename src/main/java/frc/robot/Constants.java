@@ -45,4 +45,15 @@ public final class Constants {
 	// 10 input rotations for every 1 real rotation
 	public static final double goalEncoderRotations = 1 * 10;
 
+	//thresholds for auto balancing
+    public static final double kOffBalanceAngleThresholdDegrees = 10;
+    public static final double kOnBalanceAngleThresholdDegrees = 5;	
+
+	// PID values for auto balancing
+	public static class balanceCorrection {
+		public static double kP = 0.005;
+		public static double kI = 0;
+		public static double kD = 0;
+
+	}
 }
