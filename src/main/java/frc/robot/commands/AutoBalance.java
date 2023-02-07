@@ -40,7 +40,8 @@ public class AutoBalance extends CommandBase {
 
     double pitchAngleDegrees = ahrs.getPitch();
     System.out.println(pitchAngleDegrees);
-    //rDrive.getDifferentialDrive().arcadeDrive(balanceCorrector.calculate(pitchAngleDegrees, 0), 0, false);
+
+    // passing the balance corrector into tank drive
     rDrive.getDifferentialDrive().tankDrive(-balanceCorrector.calculate(pitchAngleDegrees, 0), 
                                             balanceCorrector.calculate(pitchAngleDegrees, 0), false);
   }
