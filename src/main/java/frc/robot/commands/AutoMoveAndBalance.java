@@ -22,10 +22,14 @@ public class AutoMoveAndBalance extends SequentialCommandGroup {
   // Drive Subsystem
   private final RevDrivetrain rDrive;
 
+  // AutoBalance Command
+  private final AutoBalance autoBalance;
+
   /** Creates a new MoveAndBalance. */
-  public AutoMoveAndBalance(RevDrivetrain drive) {
+  public AutoMoveAndBalance(RevDrivetrain drive, AutoBalance balance) {
 
     rDrive = drive;
+    autoBalance = balance;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -34,7 +38,8 @@ public class AutoMoveAndBalance extends SequentialCommandGroup {
       new InstantCommand(() -> rDrive.getRightEncoder().setPosition(0), rDrive),
       new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(.3, -.3), rDrive)
       .until(() -> rDrive.isEncoderAtPosition(goalEncoderRotations)),
-      new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(0, 0), rDrive)
+      new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(0, 0), rDrive).withTimeout(1),
+      autoBalance
     );
   }
 }

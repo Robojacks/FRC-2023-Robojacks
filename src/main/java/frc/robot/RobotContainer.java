@@ -44,6 +44,9 @@ public class RobotContainer {
   // Drive Subsystem
   private final RevDrivetrain rDrive = new RevDrivetrain();
 
+  // AutoBalance Command
+  private final AutoBalance autoBalance = new AutoBalance(rDrive);
+
   /* --- Default Commands --- */
 
   // drive with controller 
@@ -74,9 +77,9 @@ public class RobotContainer {
     new JoystickButton(xbox, kA.value)
     .whileTrue(new GoToTarget(rDrive));
 
-    //auto balance, only used when on slanted surface
+    //auto balance
     new JoystickButton(xbox, kY.value)
-    .whileTrue(new AutoBalance(rDrive));
+    .whileTrue(autoBalance);
 
   }
 
@@ -84,10 +87,13 @@ public class RobotContainer {
   }
 
   public void periodic() {
+    rDrive.periodic();
   }
 
   public Command getAutonomousCommand() {
-    return new AutoMoveAndBalance(rDrive);
+    
+    return new AutoMoveAndBalance(rDrive, autoBalance);
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
