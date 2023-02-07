@@ -37,7 +37,7 @@ public class AutoMoveAndBalance extends SequentialCommandGroup {
       new InstantCommand(() -> rDrive.getLeftEncoder().setPosition(0), rDrive),
       new InstantCommand(() -> rDrive.getRightEncoder().setPosition(0), rDrive),
       new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(.3, -.3), rDrive)
-      .until(() -> rDrive.isEncoderAtPosition(goalEncoderRotations)),
+      .until(() -> rDrive.isEncoderAtPosition(autoMoveRotations)),
       new RunCommand(() -> rDrive.getDifferentialDrive().tankDrive(0, 0), rDrive).withTimeout(1),
       autoBalance
     );

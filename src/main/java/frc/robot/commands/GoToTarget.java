@@ -73,7 +73,7 @@ public class GoToTarget extends CommandBase {
 
       // Use this range as the measurement we give to the PID controller.
       // -1.0 required to ensure positive PID controller effort _increases_ range
-      forwardSpeed = forwardController.calculate(range, goalRangeMeters);
+      forwardSpeed = forwardController.calculate(range, goalTargetRangeMeters);
 
       // Also calculate angular power
       // -1.0 required to ensure positive PID controller effort _increases_ yaw

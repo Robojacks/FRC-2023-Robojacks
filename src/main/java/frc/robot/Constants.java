@@ -39,11 +39,21 @@ public final class Constants {
 
     // How far from the target we want to be
 	// found experimentally that this goal range has a tolerance of plus or minus 4 inches (tested with range of 24 inches)
-    public static final double goalRangeMeters = Units.inchesToMeters(24);
+    public static final double goalTargetRangeMeters = Units.inchesToMeters(24);
+
+
+	// user inputs the number of feet they want the robot to move in AutoMoveAndBalance in the parentheses
+	public static final double goalAutoMoveInches = (2) * 12;
+
+	// the circumferene of the wheel in inches
+	// user inputs the radius of the wheel in inches into the parentheses
+	public static final double wheelCircumferenceInches = (3) * 2 * Math.PI;
+
+	// 10 input rotations for every 1 real rotation
+	public static final double driveMotorGearRatio = 10;
 
 	// how many rotations the wheels move in autonomous
-	// 10 input rotations for every 1 real rotation
-	public static final double goalEncoderRotations = 1 * 10;
+	public static final double autoMoveRotations = (goalAutoMoveInches * driveMotorGearRatio) / (wheelCircumferenceInches);
 
 	//thresholds for auto balancing
     public static final double kOffBalanceAngleThresholdDegrees = 10;
