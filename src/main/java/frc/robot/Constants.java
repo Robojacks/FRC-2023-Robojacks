@@ -59,6 +59,15 @@ public final class Constants {
     public static final double kOffBalanceAngleThresholdDegrees = 10;
     public static final double kOnBalanceAngleThresholdDegrees = 5;	
 
+	// PID values for vision correction 
+	public static class visionCorrection {
+		public static double linearP = 1;
+		public static double linearD = 0;
+		
+		public static double angularP = .01;
+		public static double angularD = 0;
+	}
+
 	// PID values for auto balancing
 	public static class balanceCorrection {
 		public static double kP = 0.005;
@@ -66,4 +75,7 @@ public final class Constants {
 		public static double kD = 0;
 
 	}
+
+
+
 }
