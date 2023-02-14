@@ -9,15 +9,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.*;
-
-import java.util.function.BooleanSupplier;
-
 
 public class RevDrivetrain extends SubsystemBase {
 
@@ -35,8 +33,25 @@ public class RevDrivetrain extends SubsystemBase {
 
   public RevDrivetrain() {
     
+    LFrontWheel.restoreFactoryDefaults();
+    LFrontWheel.setIdleMode(IdleMode.kCoast);
+    LFrontWheel.burnFlash();
+
+    RFrontWheel.restoreFactoryDefaults();
+    RFrontWheel.setIdleMode(IdleMode.kCoast);
+    RFrontWheel.setInverted(true);
+    RFrontWheel.burnFlash();
+
+    LRearWheel.restoreFactoryDefaults();
+    LRearWheel.setIdleMode(IdleMode.kCoast);
     LRearWheel.follow(LFrontWheel);
+    LRearWheel.burnFlash();
+    
+
+    RRearWheel.restoreFactoryDefaults();
+    RRearWheel.setIdleMode(IdleMode.kCoast);
     RRearWheel.follow(RFrontWheel);
+    RRearWheel.burnFlash();
   }
 
  /* public void moveDistance (double distance) {
@@ -78,5 +93,9 @@ public class RevDrivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
+  }
+
+  public void drive(double leftSpeed, double rightSpeed) {
+    roboDrive.tankDrive(leftSpeed, rightSpeed,true);
   }
 }

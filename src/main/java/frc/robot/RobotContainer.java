@@ -19,10 +19,16 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
+import frc.robot.commands.Drive;
 import frc.robot.commands.GoToTarget;
-
+import frc.robot.commands.MoveElevatorAndCarriage;
+import frc.robot.commands.MoveWristIn;
+import frc.robot.commands.MoveWristOut;
+import frc.robot.subsystems.Carriage;
+import frc.robot.subsystems.Elevator;
 // import RevDrivetrain subsystem
 import frc.robot.subsystems.RevDrivetrain;
+import frc.robot.subsystems.Wrist;
 
 // import constants
 import static frc.robot.Constants.*;
@@ -41,16 +47,44 @@ public class RobotContainer {
   // Drive Controller
   private XboxController xbox = new XboxController(kXboxPort);
 
+
+  /** ------ SUBSYSTEMS ------ */
+
   // Drive Subsystem
   private final RevDrivetrain rDrive = new RevDrivetrain();
+
+  // Wrist Subsystem
+  private final Wrist wrist = new Wrist();
+
+  // Wrist Subsystem
+  private final Elevator elevator = new Elevator();
+
+  // Wrist Subsystem
+  private final Carriage carriage = new Carriage();
+
+
+  /** ------ COMMANDS ------ */
+
+  //Drive Command
+  private final Drive drive = new Drive(xbox, rDrive);
 
   // AutoBalance Command
   private final AutoBalance autoBalance = new AutoBalance(rDrive);
 
+  // MoveWrist Command
+  private final MoveWristIn moveWristIn = new MoveWristIn(wrist);
+
+  // MoveWrist Command
+  private final MoveWristOut moveWristOut = new MoveWristOut(wrist);
+
+  // MoveWrist Command
+  private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
+
+
   /* --- Default Commands --- */
 
   // drive with controller 
-  private Command manualDrive = new RunCommand(
+  /*private Command manualDrive = new RunCommand(
     
   // drive motors run in tank drive based on joystick inputs
     () -> rDrive.getDifferentialDrive().tankDrive (
@@ -59,7 +93,7 @@ public class RobotContainer {
       true
       ),
     rDrive
-  );
+  );*/
 
   /* --- Container for the robot --- contains subsystems, OI devices, and commands */
   public RobotContainer() {
@@ -67,8 +101,11 @@ public class RobotContainer {
     // configure the button bindings
     configureButtonBindings();
 
-    // run manualDrive and moveArm as the default commands
-    rDrive.setDefaultCommand(manualDrive);
+    // run manualDrive and moveElevatorAndCarriage as the default commands
+    //rDrive.setDefaultCommand(manualDrive);
+    rDrive.setDefaultCommand(drive);
+    elevator.setDefaultCommand(moveElevatorAndCarriage);
+
   }
 
   private void configureButtonBindings() {
@@ -80,6 +117,14 @@ public class RobotContainer {
     //auto balance
     new JoystickButton(xbox, kY.value)
     .whileTrue(autoBalance);
+
+    // wrist in
+    new JoystickButton(xbox, kLeftBumper.value)
+    .onTrue(moveWristIn);
+
+    // wrist out
+    new JoystickButton(xbox, kRightBumper.value)
+    .onTrue(moveWristOut);
 
   }
 

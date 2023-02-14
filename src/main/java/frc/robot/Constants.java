@@ -18,17 +18,33 @@ public final class Constants {
     
     // Port Numbers
 
-	// Xbox controller port
+	// xbox controller port
 	public static final int kXboxPort = 0;
 
-	// Drive Ports
+	// drive Ports
 	public static final int kLeftFrontPort = 1;
 	public static final int kLeftRearPort = 2;
 	public static final int kRightFrontPort = 3;
 	public static final int kRightRearPort = 4;
 
+	// elevator ports
+	public static final int kLeftElevatorPort = 5;
+	public static final int kRightElevatorPort = 6;
+
+	// carriage port
+	public static final int carriagePort = 7;
+
+	// wrist port
+	public static final int wristPort = 8;
+
+	// set the deadband
 	public static final double percentDeadband = 0.05;
-	
+
+	// how much the wrist shiuld rotate to extend and retract
+	public static final double wristRotations = 20;
+
+
+	/** ------ VISION TRACKING CONSTANTS ------ */
 
 	// Constants such as camera and target height stored. Change per robot and goal!
     public static final double cameraHeightMeters = Units.inchesToMeters(8.5);
@@ -41,6 +57,17 @@ public final class Constants {
 	// found experimentally that this goal range has a tolerance of plus or minus 4 inches (tested with range of 24 inches)
     public static final double goalTargetRangeMeters = Units.inchesToMeters(24);
 
+	// PID values for vision correction 
+	public static class visionCorrection {
+		public static double linearP = 1;
+		public static double linearD = 0;
+		
+		public static double angularP = .01;
+		public static double angularD = 0;
+	}
+
+
+	/** ------ AUTO BALANCE CONSTANTS ------ */
 
 	// user inputs the number of feet they want the robot to move in AutoMoveAndBalance in the parentheses
 	public static final double goalAutoMoveInches = (2) * 12;
@@ -58,15 +85,6 @@ public final class Constants {
 	//thresholds for auto balancing
     public static final double kOffBalanceAngleThresholdDegrees = 10;
     public static final double kOnBalanceAngleThresholdDegrees = 5;	
-
-	// PID values for vision correction 
-	public static class visionCorrection {
-		public static double linearP = 1;
-		public static double linearD = 0;
-		
-		public static double angularP = .01;
-		public static double angularD = 0;
-	}
 
 	// PID values for auto balancing
 	public static class balanceCorrection {
