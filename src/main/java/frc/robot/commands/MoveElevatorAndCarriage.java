@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Carriage;
 
-import static frc.robot.Constants.*;
-
-
 public class MoveElevatorAndCarriage extends CommandBase {
 
   private final Elevator elevator;

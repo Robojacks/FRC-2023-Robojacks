@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -21,27 +23,56 @@ public final class Constants {
 	// xbox controller port
 	public static final int kXboxPort = 0;
 
-	// drive Ports
+	// drive motor ports
 	public static final int kLeftFrontPort = 1;
 	public static final int kLeftRearPort = 2;
 	public static final int kRightFrontPort = 3;
 	public static final int kRightRearPort = 4;
 
-	// elevator ports
-	public static final int kLeftElevatorPort = 5;
-	public static final int kRightElevatorPort = 6;
-
-	// carriage port
-	public static final int carriagePort = 7;
-
-	// wrist port
-	public static final int wristPort = 8;
-
 	// set the deadband
 	public static final double percentDeadband = 0.05;
 
-	// how much the wrist shiuld rotate to extend and retract
-	public static final double wristRotations = 20;
+	// add a compressor
+    public Compressor airow = new Compressor(0, PneumaticsModuleType.CTREPCM);
+
+    // assign port number to compressor
+    public static final PneumaticsModuleType compressorModule = PneumaticsModuleType.CTREPCM;
+
+	// elevator motor ports
+	public static final int kLeftElevatorPort = 5;
+	public static final int kRightElevatorPort = 6;
+
+	// carriage motor port
+	public static final int carriagePort = 7;
+
+	// wrist motor port
+	public static final int wristPort = 8;
+
+	// shooter motor ports
+	public static final int kLShooterPort = 9;
+	public static final int kRShooterPort = 10;
+
+	// claw piston ports
+	public static final int kLClawPistonPort = 11;
+	public static final int kRClawPistonPort = 12;
+
+	/** I have not yet tested these rotation speeds, and I put in 10 rotations as a default. 
+	 * Test and change these values as needed. */
+
+	// how many times the wrist should rotate to extend and retract
+	public static final double wristRotations = 10;
+
+	// how many times the shooter should rotate at its initial speed
+	public static final double shooterRotationsInitial = 10;
+
+	// how many times the shooter should rotate at its final speed
+	public static final double shooterRotationsFinal = 10;
+
+	// initial and final speeds of the shooter in percentage of battery
+		// should change this to a set voltage to ensure consistency
+		// test these values and change as needed
+	public static final double shooterSpeedInitialPercent = 0.5;
+	public static final double shooterSpeedFinalPercent = 1;
 
 
 	/** ------ VISION TRACKING CONSTANTS ------ */

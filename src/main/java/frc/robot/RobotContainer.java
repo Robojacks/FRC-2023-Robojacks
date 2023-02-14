@@ -24,10 +24,12 @@ import frc.robot.commands.GoToTarget;
 import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristOut;
+import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Carriage;
 import frc.robot.subsystems.Elevator;
 // import RevDrivetrain subsystem
 import frc.robot.subsystems.RevDrivetrain;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Wrist;
 
 // import constants
@@ -62,6 +64,9 @@ public class RobotContainer {
   // Wrist Subsystem
   private final Carriage carriage = new Carriage();
 
+  // Shooter Subsystem
+  private final Shooter shooter = new Shooter();
+  
 
   /** ------ COMMANDS ------ */
 
@@ -79,6 +84,9 @@ public class RobotContainer {
 
   // MoveWrist Command
   private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
+
+  // Shoot Command
+  private final Shoot shoot = new Shoot(shooter);
 
 
   /* --- Default Commands --- */
@@ -125,6 +133,10 @@ public class RobotContainer {
     // wrist out
     new JoystickButton(xbox, kRightBumper.value)
     .onTrue(moveWristOut);
+
+    // shoot
+    new JoystickButton(xbox, kY.value)
+    .onTrue(shoot);
 
   }
 

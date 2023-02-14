@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Shooter;
 
 // import constants
 import static frc.robot.Constants.*;
@@ -16,24 +16,25 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class MoveWristIn extends SequentialCommandGroup {
+public class Shoot extends SequentialCommandGroup {
 
   // Drive Subsystem
-  private final Wrist wrist;
+  private final Shooter shooter;
 
 
   /** Creates a new MoveAndBalance. */
-  public MoveWristIn(Wrist wristSubsystem) {
+  public Shoot(Shooter shooterSubsystem) {
 
-    wrist = wristSubsystem;
+    shooter = shooterSubsystem;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
-      new RunCommand(() -> wrist.move(.3))
-      .until(() -> wrist.isEncoderAtPosition(wristRotations)),
-      new RunCommand(() -> wrist.move(0)).withTimeout(1)
+      new RunCommand(() -> shooter.move(shooterSpeedInitialPercent))
+      .until(() -> shooter.isEncoderAtPosition(shooterRotationsInitial)),
+      new RunCommand(() -> shooter.move(shooterSpeedFinalPercent))
+      .until(() -> shooter.isEncoderAtPosition(shooterRotationsFinal)),
+      new RunCommand(() -> shooter.move(0)).withTimeout(1)
     );
   }
 }
