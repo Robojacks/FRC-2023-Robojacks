@@ -17,12 +17,39 @@ public class Claw extends SubsystemBase {
    private Solenoid LClawPiston = new Solenoid(compressorModule, kLClawPistonPort);
    private Solenoid RClawPiston = new Solenoid(compressorModule, kRClawPistonPort);
 
-  public Claw() {}
+  public Claw() {
+  }
 
-  // method sets the position of the claw (open or closed)
-  public void setClawPosition (boolean isClawClosed) {
-    LClawPiston.set(isClawClosed);
-    RClawPiston.set(isClawClosed);
+  // method sets the position of the claw (open = false and closed = true)
+  /*public void setClawPosition (Boolean setClawClosed) {
+    
+    LClawPiston.set(setClawClosed);
+    RClawPiston.set(setClawClosed);
+  }*/
+
+  public Boolean isClawClosed () {
+    return LClawPiston.get() | RClawPiston.get();
+  }
+
+  public void closeClaw() {
+    LClawPiston.set(true);
+    RClawPiston.set(true);
+  }
+
+  public void openClaw() {
+    LClawPiston.set(false);
+    RClawPiston.set(false);
+  }
+
+  public void setClawPosition () {
+      
+    if (isClawClosed()) {
+      openClaw();
+    
+    } else {
+      closeClaw();
+    }
+    
   }
 
   @Override

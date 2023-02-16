@@ -5,11 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Claw;
 
-public class CloseClaw extends CommandBase {
+public class MoveClaw extends CommandBase {
   /** Creates a new CloseClaw. */
-  public CloseClaw() {
+
+  private final Claw claw; 
+
+  public MoveClaw(Claw clawSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    claw = clawSubsystem;
+
   }
 
   // Called when the command is initially scheduled.
@@ -22,6 +28,8 @@ public class CloseClaw extends CommandBase {
   @Override
   public void execute() {
     
+    // move the pistons into the closed position 
+    claw.setClawPosition();
   }
 
   // Called once the command ends or is interrupted.

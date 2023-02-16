@@ -19,13 +19,17 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
+//import frc.robot.commands.CloseClaw;
 import frc.robot.commands.Drive;
 import frc.robot.commands.GoToTarget;
+import frc.robot.commands.MoveClaw;
 import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristOut;
+//import frc.robot.commands.OpenClaw;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Carriage;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 // import RevDrivetrain subsystem
 import frc.robot.subsystems.RevDrivetrain;
@@ -66,6 +70,9 @@ public class RobotContainer {
 
   // Shooter Subsystem
   private final Shooter shooter = new Shooter();
+
+  // Claw Subsystem
+  private final Claw claw = new Claw();
   
 
   /** ------ COMMANDS ------ */
@@ -87,6 +94,15 @@ public class RobotContainer {
 
   // Shoot Command
   private final Shoot shoot = new Shoot(shooter);
+
+  // MoveClaw Command
+  private final MoveClaw moveClaw = new MoveClaw(claw);
+
+  // CloseClaw Command
+  //private final CloseClaw closeClaw = new CloseClaw(claw);
+
+  // OpenClaw Command
+  //private final OpenClaw openClaw = new OpenClaw(claw);
 
 
   /* --- Default Commands --- */
@@ -123,7 +139,7 @@ public class RobotContainer {
     .whileTrue(new GoToTarget(rDrive));
 
     //auto balance
-    new JoystickButton(xbox, kY.value)
+    new JoystickButton(xbox, kX.value)
     .whileTrue(autoBalance);
 
     // wrist in
@@ -137,6 +153,18 @@ public class RobotContainer {
     // shoot
     new JoystickButton(xbox, kY.value)
     .onTrue(shoot);
+
+    // move claw
+    new JoystickButton(xbox, kB.value)
+    .onTrue(moveClaw);
+
+    /*// close claw
+    new JoystickButton(xbox, kA.value)
+    .onTrue(closeClaw);
+
+    // close claw
+    new JoystickButton(xbox, kA.value)
+    .onTrue(closeClaw);*/
 
   }
 
