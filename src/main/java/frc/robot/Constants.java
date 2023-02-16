@@ -24,10 +24,10 @@ public final class Constants {
 	public static final int kXboxPort = 0;
 
 	// drive motor ports
-	public static final int kLeftFrontPort = 1;
-	public static final int kLeftRearPort = 2;
-	public static final int kRightFrontPort = 3;
-	public static final int kRightRearPort = 4;
+	public static final int kLeftFrontPort = 0;
+	public static final int kLeftRearPort = 1;
+	public static final int kRightFrontPort = 9;
+	public static final int kRightRearPort = 8;
 
 	// set the deadband
 	public static final double percentDeadband = 0.05;
@@ -49,12 +49,12 @@ public final class Constants {
 	public static final int wristPort = 8;
 
 	// shooter motor ports
-	public static final int kLShooterPort = 9;
-	public static final int kRShooterPort = 10;
+	public static final int kLShooterPort = 10;
+	public static final int kRShooterPort = 11;
 
 	// claw piston ports
-	public static final int kLClawPistonPort = 11;
-	public static final int kRClawPistonPort = 12;
+	public static final int kLClawPistonPort = 0;
+	public static final int kRClawPistonPort = 1;
 
 	/** I have not yet tested these rotation speeds, and I put in 10 rotations as a default. 
 	 * Test and change these values as needed. */
