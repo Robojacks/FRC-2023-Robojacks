@@ -35,8 +35,8 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    revDrivetrain.drive(revDrivetrain.deadband((xbox.getRawAxis(kLeftY.value))*.7, percentDeadband), 
-    revDrivetrain.deadband((xbox.getRawAxis(kRightY.value)) *.7, percentDeadband));
+    revDrivetrain.drive(revDrivetrain.deadband((xbox.getRawAxis(kLeftY.value))*.65, percentDeadband), 
+    revDrivetrain.deadband((xbox.getRawAxis(kRightY.value)) *.65, percentDeadband));
   
   }
 

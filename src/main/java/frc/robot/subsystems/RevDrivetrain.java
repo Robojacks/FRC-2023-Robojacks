@@ -34,22 +34,22 @@ public class RevDrivetrain extends SubsystemBase {
   public RevDrivetrain() {
     
     LFrontWheel.restoreFactoryDefaults();
-    LFrontWheel.setIdleMode(IdleMode.kCoast);
+    LFrontWheel.setIdleMode(IdleMode.kBrake);
     LFrontWheel.burnFlash();
 
     RFrontWheel.restoreFactoryDefaults();
-    RFrontWheel.setIdleMode(IdleMode.kCoast);
+    RFrontWheel.setIdleMode(IdleMode.kBrake);
     RFrontWheel.setInverted(true);
     RFrontWheel.burnFlash();
 
     LRearWheel.restoreFactoryDefaults();
-    LRearWheel.setIdleMode(IdleMode.kCoast);
+    LRearWheel.setIdleMode(IdleMode.kBrake);
     LRearWheel.follow(LFrontWheel);
     LRearWheel.burnFlash();
     
 
     RRearWheel.restoreFactoryDefaults();
-    RRearWheel.setIdleMode(IdleMode.kCoast);
+    RRearWheel.setIdleMode(IdleMode.kBrake);
     RRearWheel.follow(RFrontWheel);
     RRearWheel.burnFlash();
   }

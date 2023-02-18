@@ -105,7 +105,7 @@ public final class Constants {
 	/** ------ AUTO BALANCE CONSTANTS ------ */
 
 	// user inputs the number of feet they want the robot to move in AutoMoveAndBalance in the parentheses
-	public static final double goalAutoMoveInches = (2) * 12;
+	public static final double goalAutoMoveInches = (5) * 12;
 
 	// the circumferene of the wheel in inches
 	// user inputs the radius of the wheel in inches into the parentheses
