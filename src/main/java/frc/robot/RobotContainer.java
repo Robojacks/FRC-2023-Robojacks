@@ -23,6 +23,7 @@ import frc.robot.commands.AutoMoveAndBalance;
 //import frc.robot.commands.CloseClaw;
 import frc.robot.commands.Drive;
 import frc.robot.commands.GoToTarget;
+import frc.robot.commands.Intake;
 import frc.robot.commands.MoveClaw;
 import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristIn;
@@ -94,6 +95,9 @@ public class RobotContainer {
   // Shoot Command
   private final Shoot shoot = new Shoot(shooter);
 
+  // Intake Command
+  private final Intake intake = new Intake(shooter);
+
   // MoveClaw Command
   private final MoveClaw moveClaw = new MoveClaw(claw);
 
@@ -152,6 +156,10 @@ public class RobotContainer {
     // shoot
     new JoystickButton(xbox, kA.value)
     .onTrue(shoot);
+
+    // intake
+    new JoystickButton(xbox, kX.value)
+    .whileTrue(intake);
 
     // move claw
     new JoystickButton(xbox, kY.value)

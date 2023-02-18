@@ -63,17 +63,17 @@ public final class Constants {
 	public static final double wristRotations = 1;
 	
 	// how many times the elevator should rotate to move from ground level to high node
-	public static final double elevatorHighRotations = 10;
+	public static final double elevatorHighRotations = 1;
 
 	// how many times the elevator should rotate to move from ground level to high node
-	public static final double elevatorMidRotations = 10;
+	public static final double elevatorMidRotations = 1;
 
 
 	// how many times the shooter should rotate at its initial speed
-	public static final double shooterRotationsInitial = 10;
+	public static final double shooterRotationsInitial = 1;
 
 	// how many times the shooter should rotate at its final speed
-	public static final double shooterRotationsFinal = 10;
+	public static final double shooterRotationsFinal = 1;
 
 
 	// initial and final speeds of the shooter in percentage of battery
