@@ -28,8 +28,9 @@ import frc.robot.commands.GoToTarget;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveClaw;
 import frc.robot.commands.MoveElevatorAndCarriage;
-import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristOut;
+import frc.robot.commands.MoveWristIn;
+import frc.robot.commands.MoveWristLevel;
 //import frc.robot.commands.OpenClaw;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Carriage;
@@ -90,10 +91,13 @@ public class RobotContainer {
   private final AutoBalance autoBalance = new AutoBalance(rDrive);
 
   // MoveWrist Command
+  private final MoveWristOut moveWristOut = new MoveWristOut(wrist);
+
+  // MoveWrist Command
   private final MoveWristIn moveWristIn = new MoveWristIn(wrist);
 
   // MoveWrist Command
-  private final MoveWristOut moveWristOut = new MoveWristOut(wrist);
+  private final MoveWristLevel moveWristLevel = new MoveWristLevel(wrist);
 
   // MoveWrist Command
   private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
@@ -160,6 +164,10 @@ public class RobotContainer {
     // wrist out
     new JoystickButton(xbox, kRightBumper.value)
     .onTrue(moveWristOut);
+
+    // wrist out
+    new JoystickButton(xbox, kB.value)
+    .onTrue(moveWristLevel);
 
     // shoot
     new JoystickButton(xbox, kA.value)

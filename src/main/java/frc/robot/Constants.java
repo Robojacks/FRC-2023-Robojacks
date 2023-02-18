@@ -65,7 +65,6 @@ public final class Constants {
 	// how many times the elevator should rotate to move from ground level to high node
 	public static final double elevatorMidRotations = 1;
 
-
 	// how many times the shooter should rotate at its initial speed
 	public static final double shooterRotationsInitial = 5;
 

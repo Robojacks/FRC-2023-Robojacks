@@ -5,8 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Wrist;
@@ -18,14 +16,14 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class MoveWristIn extends SequentialCommandGroup {
+public class MoveWristLevel extends SequentialCommandGroup {
 
   // Drive Subsystem
   private final Wrist wrist;
 
 
   /** Creates a new MoveAndBalance. */
-  public MoveWristIn(Wrist wristSubsystem) {
+  public MoveWristLevel(Wrist wristSubsystem) {
 
     wrist = wristSubsystem;
 
@@ -34,9 +32,8 @@ public class MoveWristIn extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
       new RunCommand(() -> wrist.move(-0.3))
-      .until(() -> wrist.isEncoderAtInPosition(-wristRotations)),
+      .until(() -> wrist.isEncoderAtInPosition(-130/3)),
       new RunCommand(() -> wrist.move(0)).withTimeout(1)
-
     );
   }
 }

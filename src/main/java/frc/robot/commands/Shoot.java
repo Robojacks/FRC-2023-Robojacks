@@ -30,9 +30,9 @@ public class Shoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(() -> shooter.move(shooterSpeedInitialPercent))
+      new RunCommand(() -> shooter.move(shooterSpeedInitialPercent *.3))
       .until(() -> shooter.isEncoderAtPosition(shooterRotationsInitial)),
-      new RunCommand(() -> shooter.move(shooterSpeedFinalPercent))
+      new RunCommand(() -> shooter.move(shooterSpeedFinalPercent *.3))
       .until(() -> shooter.isEncoderAtPosition(shooterRotationsFinal)),
       new RunCommand(() -> shooter.move(0)).withTimeout(1)
     );

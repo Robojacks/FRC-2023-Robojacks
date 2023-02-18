@@ -5,8 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Wrist;
@@ -33,10 +31,9 @@ public class MoveWristOut extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
-      new RunCommand(() -> wrist.move(-0.3))
-      .until(() -> wrist.isEncoderAtInPosition(-wristRotations)),
+      new RunCommand(() -> wrist.move(0.3))
+      .until(() -> wrist.isEncoderAtOutPosition(wristRotations)),
       new RunCommand(() -> wrist.move(0)).withTimeout(1)
-
     );
   }
 }

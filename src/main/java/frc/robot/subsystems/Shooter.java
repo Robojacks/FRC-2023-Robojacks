@@ -29,13 +29,13 @@ public class Shooter extends SubsystemBase {
     
     LShooterMotor.restoreFactoryDefaults();
     LShooterMotor.setIdleMode(IdleMode.kBrake);
-    LShooterMotor.setInverted(false);
+    LShooterMotor.setInverted(true);
     LShooterMotor.burnFlash();
 
     RShooterMotor.restoreFactoryDefaults();
     RShooterMotor.setIdleMode(IdleMode.kBrake);
-    RShooterMotor.setInverted(true);
-    RShooterMotor.follow(LShooterMotor);
+    //RShooterMotor.follow(LShooterMotor);
+    RShooterMotor.setInverted(false);
     RShooterMotor.burnFlash();
   }
 
@@ -54,6 +54,8 @@ public class Shooter extends SubsystemBase {
 
   public void move(double speed) {
     LShooterMotor.set(speed);
+    RShooterMotor.set(speed);
+
   }
   
   @Override

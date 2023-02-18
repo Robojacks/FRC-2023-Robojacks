@@ -39,7 +39,7 @@ public class Wrist extends SubsystemBase {
 
   public Boolean isEncoderAtInPosition (double position) {
     return wristEncoder.getPosition() <= position;
-}
+  }
 
   public void move(double speed) {
     wristMotor.set(speed);

@@ -29,7 +29,7 @@ public class Intake extends CommandBase {
   @Override
   public void execute() {
     // run the shooter 
-    shooter.move(-.5);
+    shooter.move(-.5 *.3);
     
   }
   
