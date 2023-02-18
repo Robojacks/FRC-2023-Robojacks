@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import Xbox Controller and related buttons and axes
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -49,9 +51,13 @@ import static frc.robot.Constants.*;
  */
 
 public class RobotContainer {
+  
+  
 
   // Drive Controller
   private XboxController xbox = new XboxController(kXboxPort);
+
+  //Compressor phCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
 
   /** ------ SUBSYSTEMS ------ */
@@ -125,6 +131,7 @@ public class RobotContainer {
   /* --- Container for the robot --- contains subsystems, OI devices, and commands */
   public RobotContainer() {
 
+
     // configure the button bindings
     configureButtonBindings();
 
@@ -132,6 +139,7 @@ public class RobotContainer {
     //rDrive.setDefaultCommand(manualDrive);
     rDrive.setDefaultCommand(drive);
     elevator.setDefaultCommand(moveElevatorAndCarriage);
+    
 
   }
 

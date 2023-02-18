@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Claw;
 
@@ -22,14 +23,15 @@ public class MoveClaw extends CommandBase {
   @Override
   public void initialize() {
     // move the pistons into the closed position 
+    DriverStation.reportError("****************TOGLE***********", false);
     claw.toggleSol();
-    
+    //claw.openClaw();
+
   }
   
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +41,6 @@ public class MoveClaw extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

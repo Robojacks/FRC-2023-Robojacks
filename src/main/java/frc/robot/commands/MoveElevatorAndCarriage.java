@@ -36,7 +36,7 @@ public class MoveElevatorAndCarriage extends CommandBase {
     elevator.move(xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value));  
 
-    carriage.move(xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
+    carriage.move(-xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)+
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value));  
   }
 

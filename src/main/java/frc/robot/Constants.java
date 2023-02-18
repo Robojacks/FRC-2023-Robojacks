@@ -32,11 +32,9 @@ public final class Constants {
 	// set the deadband
 	public static final double percentDeadband = 0.05;
 
-	// add a compressor
-    public Compressor airow = new Compressor(0, PneumaticsModuleType.REVPH);
-
     // assign port number to compressor
     public static final PneumaticsModuleType compressorModule = PneumaticsModuleType.REVPH;
+	public static final int compressorCANID = 62;
 
 	// elevator motor ports
 	public static final int kLeftElevatorPort = 7;
@@ -53,14 +51,13 @@ public final class Constants {
 	public static final int kRShooterPort = 11;
 
 	// claw piston ports
-	public static final int kLClawPistonPort = 0;
-	public static final int kRClawPistonPort = 1;
+	public static final int kClawPistonPort = 15;
 
 	/** I have not yet tested these rotation speeds, and I put in 10 rotations as a default. 
 	 * Test and change these values as needed. */
 
 	// how many times the wrist should rotate to extend and retract
-	public static final double wristRotations = 1;
+	public static final double wristRotations = 130;
 	
 	// how many times the elevator should rotate to move from ground level to high node
 	public static final double elevatorHighRotations = 1;
@@ -70,10 +67,10 @@ public final class Constants {
 
 
 	// how many times the shooter should rotate at its initial speed
-	public static final double shooterRotationsInitial = 1;
+	public static final double shooterRotationsInitial = 5;
 
 	// how many times the shooter should rotate at its final speed
-	public static final double shooterRotationsFinal = 1;
+	public static final double shooterRotationsFinal = 10;
 
 
 	// initial and final speeds of the shooter in percentage of battery
