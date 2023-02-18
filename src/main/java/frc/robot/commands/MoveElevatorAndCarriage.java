@@ -32,6 +32,7 @@ public class MoveElevatorAndCarriage extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     elevator.move(xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value));  
 

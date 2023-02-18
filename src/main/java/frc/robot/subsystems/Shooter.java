@@ -28,12 +28,12 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     
     LShooterMotor.restoreFactoryDefaults();
-    LShooterMotor.setIdleMode(IdleMode.kCoast);
+    LShooterMotor.setIdleMode(IdleMode.kBrake);
     LShooterMotor.setInverted(false);
     LShooterMotor.burnFlash();
 
     RShooterMotor.restoreFactoryDefaults();
-    RShooterMotor.setIdleMode(IdleMode.kCoast);
+    RShooterMotor.setIdleMode(IdleMode.kBrake);
     RShooterMotor.setInverted(true);
     RShooterMotor.follow(LShooterMotor);
     RShooterMotor.burnFlash();

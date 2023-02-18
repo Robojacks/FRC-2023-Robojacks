@@ -14,8 +14,7 @@ public class Claw extends SubsystemBase {
 
    // add a piston for moving right arm
 
-   private Solenoid LClawPiston = new Solenoid(compressorModule, kLClawPistonPort);
-   private Solenoid RClawPiston = new Solenoid(compressorModule, kRClawPistonPort);
+   private Solenoid clawPiston = new Solenoid(compressorModule, kLClawPistonPort);
 
   public Claw() {
   }
@@ -27,18 +26,20 @@ public class Claw extends SubsystemBase {
     RClawPiston.set(setClawClosed);
   }*/
 
+  public void toggleSol(){
+    clawPiston.toggle();
+  }
+  
   public Boolean isClawClosed () {
-    return LClawPiston.get() | RClawPiston.get();
+    return clawPiston.get();
   }
 
   public void closeClaw() {
-    LClawPiston.set(true);
-    RClawPiston.set(true);
+    clawPiston.set(true);
   }
 
   public void openClaw() {
-    LClawPiston.set(false);
-    RClawPiston.set(false);
+    clawPiston.set(false);
   }
 
   public void setClawPosition () {

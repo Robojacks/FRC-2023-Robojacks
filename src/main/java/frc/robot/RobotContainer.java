@@ -17,6 +17,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
 //import frc.robot.commands.CloseClaw;
@@ -38,8 +39,6 @@ import frc.robot.subsystems.Wrist;
 
 // import constants
 import static frc.robot.Constants.*;
-
-import com.kauailabs.navx.frc.AHRS;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -135,11 +134,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // vision correction
-    new JoystickButton(xbox, kA.value)
+    new JoystickButton(xbox, kStart.value)
     .whileTrue(new GoToTarget(rDrive));
 
     //auto balance
-    new JoystickButton(xbox, kX.value)
+    new JoystickButton(xbox, kBack.value)
     .whileTrue(autoBalance);
 
     // wrist in
@@ -151,11 +150,11 @@ public class RobotContainer {
     .onTrue(moveWristOut);
 
     // shoot
-    new JoystickButton(xbox, kY.value)
+    new JoystickButton(xbox, kA.value)
     .onTrue(shoot);
 
     // move claw
-    new JoystickButton(xbox, kB.value)
+    new JoystickButton(xbox, kY.value)
     .onTrue(moveClaw);
 
     /*// close claw

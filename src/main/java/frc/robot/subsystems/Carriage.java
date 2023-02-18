@@ -22,7 +22,7 @@ public class Carriage extends SubsystemBase {
   public Carriage() {
 
     carriageMotor.restoreFactoryDefaults();
-    carriageMotor.setIdleMode(IdleMode.kCoast);
+    carriageMotor.setIdleMode(IdleMode.kBrake);
     carriageMotor.burnFlash();
   }
 

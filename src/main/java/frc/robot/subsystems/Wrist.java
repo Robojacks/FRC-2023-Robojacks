@@ -25,7 +25,7 @@ public class Wrist extends SubsystemBase {
   public Wrist() {
     
     wristMotor.restoreFactoryDefaults();
-    wristMotor.setIdleMode(IdleMode.kCoast);
+    wristMotor.setIdleMode(IdleMode.kBrake);
     wristMotor.burnFlash();
   }
 

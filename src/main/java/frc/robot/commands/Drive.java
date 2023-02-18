@@ -35,19 +35,15 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    new RunCommand (
-      () -> revDrivetrain.getDifferentialDrive().tankDrive (
-      revDrivetrain.deadband(-xbox.getRawAxis(kLeftY.value), percentDeadband), 
-      revDrivetrain.deadband(xbox.getRawAxis(kRightY.value), percentDeadband),
-      false
-      ));
-
+    revDrivetrain.drive(revDrivetrain.deadband(-xbox.getRawAxis(kLeftY.value), percentDeadband), 
+    revDrivetrain.deadband(xbox.getRawAxis(kRightY.value), percentDeadband));
+  
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    revDrivetrain.drive(0,0);
     
   }
 

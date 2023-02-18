@@ -24,7 +24,7 @@ public final class Constants {
 	public static final int kXboxPort = 0;
 
 	// drive motor ports
-	public static final int kLeftFrontPort = 0;
+	public static final int kLeftFrontPort = 24;
 	public static final int kLeftRearPort = 1;
 	public static final int kRightFrontPort = 9;
 	public static final int kRightRearPort = 8;
@@ -33,20 +33,20 @@ public final class Constants {
 	public static final double percentDeadband = 0.05;
 
 	// add a compressor
-    public Compressor airow = new Compressor(0, PneumaticsModuleType.CTREPCM);
+    public Compressor airow = new Compressor(0, PneumaticsModuleType.REVPH);
 
     // assign port number to compressor
-    public static final PneumaticsModuleType compressorModule = PneumaticsModuleType.CTREPCM;
+    public static final PneumaticsModuleType compressorModule = PneumaticsModuleType.REVPH;
 
 	// elevator motor ports
-	public static final int kLeftElevatorPort = 5;
-	public static final int kRightElevatorPort = 6;
+	public static final int kLeftElevatorPort = 7;
+	public static final int kRightElevatorPort = 2;
 
 	// carriage motor port
-	public static final int carriagePort = 7;
+	public static final int carriagePort = 12;
 
 	// wrist motor port
-	public static final int wristPort = 8;
+	public static final int wristPort = 13;
 
 	// shooter motor ports
 	public static final int kLShooterPort = 10;
@@ -60,13 +60,21 @@ public final class Constants {
 	 * Test and change these values as needed. */
 
 	// how many times the wrist should rotate to extend and retract
-	public static final double wristRotations = 10;
+	public static final double wristRotations = 1;
+	
+	// how many times the elevator should rotate to move from ground level to high node
+	public static final double elevatorHighRotations = 10;
+
+	// how many times the elevator should rotate to move from ground level to high node
+	public static final double elevatorMidRotations = 10;
+
 
 	// how many times the shooter should rotate at its initial speed
 	public static final double shooterRotationsInitial = 10;
 
 	// how many times the shooter should rotate at its final speed
 	public static final double shooterRotationsFinal = 10;
+
 
 	// initial and final speeds of the shooter in percentage of battery
 		// should change this to a set voltage to ensure consistency
