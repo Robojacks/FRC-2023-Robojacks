@@ -7,23 +7,17 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import Xbox Controller and related buttons and axes
 import edu.wpi.first.wpilibj.XboxController;
-
-import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 
 // import commands
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
+
+import frc.robot.commands.Drive;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
-//import frc.robot.commands.CloseClaw;
-import frc.robot.commands.Drive;
 import frc.robot.commands.GoToTarget;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveClaw;
@@ -31,15 +25,15 @@ import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristOut;
 import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristLevel;
-//import frc.robot.commands.OpenClaw;
 import frc.robot.commands.Shoot;
-import frc.robot.subsystems.Carriage;
-import frc.robot.subsystems.Claw;
-import frc.robot.subsystems.Elevator;
-// import RevDrivetrain subsystem
+
+// import subsystems
 import frc.robot.subsystems.RevDrivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Carriage;
+import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Elevator;
 
 // import constants
 import static frc.robot.Constants.*;
