@@ -33,7 +33,7 @@ public class MoveWristLevel extends SequentialCommandGroup {
       new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
       new RunCommand(() -> wrist.move(-0.3))
       .until(() -> wrist.isEncoderAtInPosition(-130/3)),
-      new RunCommand(() -> wrist.move(0)).withTimeout(1)
+      new RunCommand(() -> wrist.move(0)).withTimeout(.1)
     );
   }
 }

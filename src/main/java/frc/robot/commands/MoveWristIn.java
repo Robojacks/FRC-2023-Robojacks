@@ -35,7 +35,7 @@ public class MoveWristIn extends SequentialCommandGroup {
       new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
       new RunCommand(() -> wrist.move(-0.3))
       .until(() -> wrist.isEncoderAtInPosition(-wristRotations)),
-      new RunCommand(() -> wrist.move(0)).withTimeout(1)
+      new RunCommand(() -> wrist.move(0)).withTimeout(.1)
 
     );
   }
