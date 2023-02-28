@@ -38,12 +38,12 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
 
-    double pitchAngleDegrees = ahrs.getPitch();
-    System.out.println(pitchAngleDegrees);
+    double rollAngleDegrees = ahrs.getRoll();
+    System.out.println(rollAngleDegrees);
 
     // passing the balance corrector into tank drive
-    rDrive.getDifferentialDrive().tankDrive(balanceCorrector.calculate(pitchAngleDegrees, 0), 
-                                            balanceCorrector.calculate(pitchAngleDegrees, 0), false);
+    rDrive.getDifferentialDrive().tankDrive(-balanceCorrector.calculate(rollAngleDegrees, 0), 
+                                            -balanceCorrector.calculate(rollAngleDegrees, 0), false);
   }
 
   // Called once the command ends or is interrupted.
