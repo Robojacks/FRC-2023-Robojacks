@@ -129,6 +129,15 @@ public final class Constants {
 
 	}
 
+	public static final double wristLevelRotations = 100;
+	public static final double wristInRotations = 0;
+	public static final double wristOutRotations = 130;
+	
+	public static final double wristRotationsTolerance = 2;
+
+	public static final double wristSpeed = 0.3;
+
+
 
 
 }

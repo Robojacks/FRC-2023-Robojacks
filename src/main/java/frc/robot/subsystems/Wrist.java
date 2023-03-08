@@ -26,6 +26,8 @@ public class Wrist extends SubsystemBase {
     
     wristMotor.restoreFactoryDefaults();
     wristMotor.setIdleMode(IdleMode.kBrake);
+    wristEncoder.setPosition(0);
+
     wristMotor.burnFlash();
   }
 
@@ -41,8 +43,21 @@ public class Wrist extends SubsystemBase {
     return wristEncoder.getPosition() <= position;
   }
 
-  public void move(double speed) {
+  public Boolean isEncoderInRange (double goalPosition, double tolerance) {
+    return wristEncoder.getPosition() + tolerance >= goalPosition && wristEncoder.getPosition() - tolerance <= goalPosition;
+    
+  }
+
+  public void setSpeed(double speed) {
     wristMotor.set(speed);
+  }
+
+  // sets returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  public double motorAutoSpeedSign (double goalPosition) {
+    
+    return (goalPosition - wristEncoder.getPosition()) 
+    / (Math.abs(goalPosition - wristEncoder.getPosition()));
+    
   }
   
   @Override

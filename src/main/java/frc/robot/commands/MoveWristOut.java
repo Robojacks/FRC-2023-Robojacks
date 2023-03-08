@@ -30,10 +30,9 @@ public class MoveWristOut extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
-      new RunCommand(() -> wrist.move(0.3))
-      .until(() -> wrist.isEncoderAtOutPosition(wristRotations)),
-      new RunCommand(() -> wrist.move(0)).withTimeout(.1)
+      new RunCommand(() -> wrist.setSpeed(wristSpeed))
+      .until(() -> wrist.isEncoderAtOutPosition(wristOutRotations)),
+      new RunCommand(() -> wrist.setSpeed(0)).withTimeout(.1)
     );
   }
 }

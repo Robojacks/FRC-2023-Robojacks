@@ -30,10 +30,9 @@ public class MoveWristLevel extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> wrist.getWristEncoder().setPosition(0), wrist),
-      new RunCommand(() -> wrist.move(-0.3))
-      .until(() -> wrist.isEncoderAtInPosition(-130/3)),
-      new RunCommand(() -> wrist.move(0)).withTimeout(.1)
+      new RunCommand(() -> wrist.setSpeed(wrist.motorAutoSpeedSign(wristLevelRotations) * wristSpeed))
+      .until(() -> wrist.isEncoderInRange(wristLevelRotations, wristRotationsTolerance)),
+      new RunCommand(() -> wrist.setSpeed(0)).withTimeout(.1)
     );
   }
 }
