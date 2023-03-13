@@ -52,7 +52,7 @@ public class Wrist extends SubsystemBase {
     wristMotor.set(speed);
   }
 
-  // sets returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  // returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
   public double motorAutoSpeedSign (double goalPosition) {
     
     return (goalPosition - wristEncoder.getPosition()) 

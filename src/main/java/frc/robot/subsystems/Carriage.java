@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -16,6 +17,8 @@ public class Carriage extends SubsystemBase {
 
   private CANSparkMax carriageMotor = new CANSparkMax(carriagePort, MotorType.kBrushless);
 
+  private RelativeEncoder carriageEncoder = carriageMotor.getEncoder();
+
 
 
   /** Creates a new Elevator. */
@@ -23,11 +26,34 @@ public class Carriage extends SubsystemBase {
 
     carriageMotor.restoreFactoryDefaults();
     carriageMotor.setIdleMode(IdleMode.kBrake);
+
+    carriageEncoder.setPosition(0);
+
     carriageMotor.burnFlash();
   }
 
-  public void move(double speed) {
+  public void setSpeed(double speed) {
     carriageMotor.set(speed);
+  }
+
+  public Boolean isEncoderAtLowPosition (double goalPosition) {
+    return carriageEncoder.getPosition() <= goalPosition;
+  }
+
+  public Boolean isEncoderAtHighPosition (double goalPosition) {
+    return carriageEncoder.getPosition() >= goalPosition;
+  }
+
+  public Boolean isEncoderInRange (double goalPosition, double tolerance) {
+    return carriageEncoder.getPosition() + tolerance >= goalPosition && carriageEncoder.getPosition() - tolerance <= goalPosition;
+  }
+
+  // returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  public double motorAutoSpeedSign (double goalPosition) {
+    
+    return (goalPosition - carriageEncoder.getPosition()) 
+    / (Math.abs(goalPosition - carriageEncoder.getPosition()));
+    
   }
 
   @Override

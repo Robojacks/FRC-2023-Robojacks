@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
     
-    // Port Numbers
+    /*** ------ Port Numbers ------ */
 
 	// xbox controller port
 	public static final int kXboxPort = 0;
@@ -56,27 +56,14 @@ public final class Constants {
 	/** I have not yet tested these rotation speeds, and I put in 10 rotations as a default. 
 	 * Test and change these values as needed. */
 
-	// how many times the wrist should rotate to extend and retract
+	/*// how many times the wrist should rotate to extend and retract
 	public static final double wristRotations = 130;
 	
 	// how many times the elevator should rotate to move from ground level to high node
 	public static final double elevatorHighRotations = 1;
 
 	// how many times the elevator should rotate to move from ground level to high node
-	public static final double elevatorMidRotations = 1;
-
-	// how many times the shooter should rotate at its initial speed
-	public static final double shooterRotationsInitial = 5;
-
-	// how many times the shooter should rotate at its final speed
-	public static final double shooterRotationsFinal = 10;
-
-
-	// initial and final speeds of the shooter in percentage of battery
-		// should change this to a set voltage to ensure consistency
-		// test these values and change as needed
-	public static final double shooterSpeedInitialPercent = 0.5;
-	public static final double shooterSpeedFinalPercent = 1;
+	public static final double elevatorMidRotations = 1;*/
 
 
 	/** ------ VISION TRACKING CONSTANTS ------ */
@@ -102,7 +89,7 @@ public final class Constants {
 	}
 
 
-	/** ------ AUTO BALANCE CONSTANTS ------ */
+	/*** ------ AUTO BALANCE CONSTANTS ------ */
 
 	// user inputs the number of feet they want the robot to move in AutoMoveAndBalance in the parentheses
 	public static final double goalAutoMoveInches = (4) * 12;
@@ -129,6 +116,26 @@ public final class Constants {
 
 	}
 
+	/*** ------ SHOOTER CONSTANTS ------ */
+
+	// how many times the shooter should rotate at its initial speed
+	public static final double shooterRotationsInitial = 5;
+
+	// how many times the shooter should rotate at its final speed
+	public static final double shooterRotationsFinal = 10;
+
+
+	// initial and final speeds of the shooter in percentage of battery
+		// should change this to a set voltage to ensure consistency
+		// test these values and change as needed
+	public static final double shooterSpeedInitialPercent = 0.5;
+	public static final double shooterSpeedFinalPercent = 1;
+
+
+	/*** ------ SETPOINT CONSTANTS ------ */
+
+	// values for wrist bang-bang controller
+
 	public static final double wristLevelRotations = 100;
 	public static final double wristInRotations = 0;
 	public static final double wristOutRotations = 130;
@@ -136,6 +143,30 @@ public final class Constants {
 	public static final double wristRotationsTolerance = 2;
 
 	public static final double wristSpeed = 0.3;
+
+	// values for elevator bang-bang controller
+
+	public static final double elevatorLowRotations = 0;
+	public static final double elevatorMidRotations = 10;
+	public static final double elevatorHighRotations = 20;
+	
+	public static final double elevatorRotationsTolerance = 2;
+
+	public static final double elevatorSpeed = 0.3;
+
+	// values for carriage bang-bang controller
+
+	public static final double carriageStartConfigRotations = 0;
+
+	public static final double carriageLowRotations = 20;
+	public static final double carriageMidRotations = 10;
+	public static final double carriageHighRotations = 20;
+	
+	public static final double carriageRotationsTolerance = 2;
+
+	public static final double carriageSpeed = 0.3;
+
+
 
 
 

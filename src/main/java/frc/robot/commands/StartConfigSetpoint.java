@@ -4,14 +4,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Carriage;
+import frc.robot.subsystems.Elevator;
 
 // import constants
 import static frc.robot.Constants.*;
@@ -20,37 +19,39 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class MoveToHigh extends SequentialCommandGroup {
+public class StartConfigSetpoint extends SequentialCommandGroup {
 
+  // subsystems
   private final Elevator elevator;
   private final Carriage carriage;
+  private final MoveWristIn moveWristIn;
 
+  
   /** Creates a new MoveAndBalance. */
-  public MoveToHigh(XboxController controller, Elevator elevatorSubsystem, Carriage carriageSubsystem, POVButton dPadSubsystem) {
+  public StartConfigSetpoint(Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristIn moveWristInCommand) {
 
     elevator = elevatorSubsystem;
     carriage = carriageSubsystem;
-    addRequirements(elevator, carriage);
+    moveWristIn = moveWristInCommand;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new ParallelCommandGroup(
 
-      new InstantCommand(() -> elevator.getlElevatorEncoder().setPosition(0), elevator),
-      new InstantCommand(() -> elevator.getrElevatorEncoder().setPosition(0), elevator),
+        new RunCommand(() -> elevator.setSpeed(-elevatorSpeed))
+        .until(() -> elevator.isEncoderAtLowPosition(elevatorLowRotations)),
+        
+        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
+        .until(() -> carriage.isEncoderAtLowPosition(carriageLowRotations))
+
+      ),
       
-      new RunCommand(() -> elevator.setSpeed(.3), elevator)
-      .until(() -> elevator.isEncoderAtPosition(elevatorHighRotations)),
-
-      new RunCommand(() -> carriage.setSpeed(.3), carriage)
-      .until(() -> elevator.isEncoderAtPosition(elevatorHighRotations)),
-
-      new RunCommand(() -> elevator.setSpeed(0), elevator)
-      .withTimeout(1),
-
-      new RunCommand(() -> carriage.setSpeed(0), carriage)
-      .withTimeout(1)
+      new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),
+      new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1),
       
+      moveWristIn
+
     );
   }
 }

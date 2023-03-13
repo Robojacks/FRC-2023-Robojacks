@@ -14,19 +14,23 @@ import static edu.wpi.first.wpilibj.XboxController.Button.*;
 // import commands
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Drive;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoMoveAndBalance;
+import frc.robot.commands.CollectingSetpoint;
 import frc.robot.commands.GoToTarget;
+import frc.robot.commands.HighShootSetpoint;
 import frc.robot.commands.Intake;
+import frc.robot.commands.LowShootSetpoint;
+import frc.robot.commands.MidShootSetpoint;
 import frc.robot.commands.MoveClaw;
 import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristOut;
 import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristLevel;
 import frc.robot.commands.Shoot;
-
+import frc.robot.commands.StartConfigSetpoint;
 // import subsystems
 import frc.robot.subsystems.RevDrivetrain;
 import frc.robot.subsystems.Shooter;
@@ -105,6 +109,21 @@ public class RobotContainer {
   // MoveClaw Command
   private final MoveClaw moveClaw = new MoveClaw(claw);
 
+  // CollectingSetpoint Command
+  private final StartConfigSetpoint startConfigSetpoint = new StartConfigSetpoint(elevator, carriage, moveWristIn);
+
+  // CollectingSetpoint Command
+  private final CollectingSetpoint collectingSetpoint = new CollectingSetpoint(elevator, carriage, moveWristOut);
+
+  // LowShootSetpoint Command
+  private final LowShootSetpoint lowShootSetpoint = new LowShootSetpoint(elevator, carriage, moveWristLevel);
+
+  // MidShootSetpoint Command
+  private final MidShootSetpoint midShootSetpoint = new MidShootSetpoint(elevator, carriage, moveWristLevel);
+  
+  // HighShootSetpoint Command
+  private final HighShootSetpoint highShootSetpoint = new HighShootSetpoint(elevator, carriage, moveWristLevel);
+
   // CloseClaw Command
   //private final CloseClaw closeClaw = new CloseClaw(claw);
 
@@ -159,9 +178,9 @@ public class RobotContainer {
     new JoystickButton(xbox, kRightBumper.value)
     .onTrue(moveWristOut);
 
-    // wrist out
-    new JoystickButton(xbox, kB.value)
-    .onTrue(moveWristLevel);
+    // wrist out *** this button is being used by start config -- need to rethink buttonmapping ***
+    /*new JoystickButton(xbox, kB.value)
+    .onTrue(moveWristLevel);*/
 
     // shoot
     new JoystickButton(xbox, kA.value)
@@ -174,6 +193,52 @@ public class RobotContainer {
     // move claw
     new JoystickButton(xbox, kY.value)
     .onTrue(moveClaw);
+
+    // move to low shoot setpoint when left POV pressed
+    new Trigger(()-> {
+      
+      if(xbox.getPOV() == 270)
+        return true;
+      else
+        return false;
+      })
+      .onTrue(lowShootSetpoint);
+
+    // move to start config
+    new JoystickButton(xbox, kB.value)
+    .onTrue(startConfigSetpoint);
+
+
+    // move to mid shoot setpoint when right POV pressed
+    new Trigger(()-> {
+      
+      if(xbox.getPOV() == 90)
+        return true;
+      else
+        return false;
+      })
+      .onTrue(midShootSetpoint);
+
+    // move to high shoot setpoint when high POV pressed
+    new Trigger(()-> {
+      
+      if(xbox.getPOV() == 0)
+        return true;
+      else
+        return false;
+      })
+      .onTrue(highShootSetpoint);
+
+    // move to collecting setpoint when low POV pressed
+    new Trigger(()-> {
+      
+      if(xbox.getPOV() == 180)
+        return true;
+      else
+        return false;
+      })
+      .onTrue(collectingSetpoint);
+
 
     /*// close claw
     new JoystickButton(xbox, kA.value)

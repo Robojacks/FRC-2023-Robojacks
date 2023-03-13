@@ -15,40 +15,64 @@ import static frc.robot.Constants.*;
 
 public class Elevator extends SubsystemBase {
 
-  private CANSparkMax LElevator = new CANSparkMax(kLeftElevatorPort, MotorType.kBrushless);
-  private CANSparkMax RElevator = new CANSparkMax(kRightElevatorPort, MotorType.kBrushless);
+  private CANSparkMax lElevatorMotor = new CANSparkMax(kLeftElevatorPort, MotorType.kBrushless);
+  private CANSparkMax rElevatorMotor = new CANSparkMax(kRightElevatorPort, MotorType.kBrushless);
 
-  private RelativeEncoder leftEncoder = LElevator.getEncoder();
-  private RelativeEncoder rightEncoder = RElevator.getEncoder();
+  private RelativeEncoder lElevatorEncoder = lElevatorMotor.getEncoder();
+  private RelativeEncoder rElevatorEncoder = rElevatorMotor.getEncoder();
 
 
   /** Creates a new Elevator. */
   public Elevator() {
 
-    LElevator.restoreFactoryDefaults();
-    LElevator.setIdleMode(IdleMode.kBrake);
-    LElevator.burnFlash();
+    lElevatorMotor.restoreFactoryDefaults();
+    lElevatorMotor.setIdleMode(IdleMode.kBrake);
+    lElevatorEncoder.setPosition(0);
+    lElevatorMotor.burnFlash();
 
-    RElevator.restoreFactoryDefaults();
-    RElevator.setIdleMode(IdleMode.kBrake);
-    RElevator.follow(LElevator);
-    RElevator.burnFlash();
+    rElevatorMotor.restoreFactoryDefaults();
+    rElevatorMotor.setIdleMode(IdleMode.kBrake);
+    rElevatorMotor.follow(lElevatorMotor);
+    rElevatorEncoder.setPosition(0);
+    rElevatorMotor.burnFlash();
   }
 
-  public RelativeEncoder getLeftEncoder () {
-    return leftEncoder;
+  public RelativeEncoder getlElevatorEncoder () {
+    return lElevatorEncoder;
   }
 
-  public RelativeEncoder getRightEncoder () {
-    return rightEncoder;
+  public RelativeEncoder getrElevatorEncoder () {
+    return rElevatorEncoder;
   }
 
   public Boolean isEncoderAtPosition (double position) {
-    return leftEncoder.getPosition() >= position | rightEncoder.getPosition() >= position;
+    return lElevatorEncoder.getPosition() >= position | rElevatorEncoder.getPosition() >= position;
   }
 
-  public void move(double speed) {
-    LElevator.set(speed);
+  public void setSpeed(double speed) {
+    lElevatorMotor.set(speed);
+  }
+
+  public Boolean isEncoderAtLowPosition (double goalPosition) {
+    return lElevatorEncoder.getPosition() <= goalPosition | rElevatorEncoder.getPosition() <= goalPosition;
+  }
+
+  public Boolean isEncoderAtHighPosition (double goalPosition) {
+    return lElevatorEncoder.getPosition() >= goalPosition | rElevatorEncoder.getPosition() >= goalPosition;
+  }
+
+  public Boolean isEncoderInRange (double goalPosition, double tolerance) {
+    return 
+      lElevatorEncoder.getPosition() + tolerance >= goalPosition && lElevatorEncoder.getPosition() - tolerance <= goalPosition |
+      rElevatorEncoder.getPosition() + tolerance >= goalPosition && rElevatorEncoder.getPosition() - tolerance <= goalPosition;
+  }
+
+  // returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  public double motorAutoSpeedSign (double goalPosition) {
+    
+    return (goalPosition - lElevatorEncoder.getPosition()) 
+    / (Math.abs(goalPosition - lElevatorEncoder.getPosition()));
+    
   }
 
   @Override

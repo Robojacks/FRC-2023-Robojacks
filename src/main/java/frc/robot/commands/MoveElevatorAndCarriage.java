@@ -33,18 +33,18 @@ public class MoveElevatorAndCarriage extends CommandBase {
   @Override
   public void execute() {
     
-    elevator.move((xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
+    elevator.setSpeed((xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value))*.3);  
 
-    carriage.move((-xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)+
+    carriage.setSpeed((-xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)+
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value)) *.2);  
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevator.move(0);  
-    carriage.move(0); 
+    elevator.setSpeed(0);  
+    carriage.setSpeed(0); 
     
   }
 
