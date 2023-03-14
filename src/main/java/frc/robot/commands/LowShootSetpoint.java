@@ -43,8 +43,8 @@ public class LowShootSetpoint extends SequentialCommandGroup {
         .until(() -> elevator.isEncoderAtLowPosition(elevatorLowRotations)),
         
         /* change this to an inRange or high position so that carriage can extend */
-        new RunCommand(() -> carriage.setSpeed(carriageSpeed))
-        .until(() -> carriage.isEncoderAtHighPosition(carriageHighRotations)),
+        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
+        .until(() -> carriage.isEncoderAtLowerBound(-carriageOutRotations)),
 
         moveWristLevel
 
@@ -52,6 +52,7 @@ public class LowShootSetpoint extends SequentialCommandGroup {
       
       new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),
       new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1)
+
 
     );
   }

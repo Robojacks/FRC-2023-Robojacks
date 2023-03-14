@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
@@ -67,7 +68,7 @@ public class Elevator extends SubsystemBase {
       rElevatorEncoder.getPosition() + tolerance >= goalPosition && rElevatorEncoder.getPosition() - tolerance <= goalPosition;
   }
 
-  // returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  /** Returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint. */
   public double motorAutoSpeedSign (double goalPosition) {
     
     return (goalPosition - lElevatorEncoder.getPosition()) 
@@ -77,6 +78,13 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("Left Elevator Encoder Counts", lElevatorEncoder.getPosition());
+    SmartDashboard.putNumber("Right Elevator Encoder Counts", rElevatorEncoder.getPosition());
+
+    SmartDashboard.putNumber("Motor Direction (to go to mid position)", motorAutoSpeedSign(elevatorMidRotations));
+
+
     // This method will be called once per scheduler run
   }
 }

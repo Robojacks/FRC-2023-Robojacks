@@ -42,15 +42,17 @@ public class StartConfigSetpoint extends SequentialCommandGroup {
         new RunCommand(() -> elevator.setSpeed(-elevatorSpeed))
         .until(() -> elevator.isEncoderAtLowPosition(elevatorLowRotations)),
         
-        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
-        .until(() -> carriage.isEncoderAtLowPosition(carriageLowRotations))
+        new RunCommand(() -> carriage.setSpeed(carriageSpeed))
+        .until(() -> carriage.isEncoderAtUpperBound(carriageInRotations)),
+
+        moveWristIn
 
       ),
       
       new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),
-      new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1),
+      new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1)
       
-      moveWristIn
+      
 
     );
   }

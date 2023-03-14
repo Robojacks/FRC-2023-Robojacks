@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.*;
@@ -62,5 +63,8 @@ public class Wrist extends SubsystemBase {
   
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Wrist Encoder Counts", wristEncoder.getPosition());
+
+
   }
 }

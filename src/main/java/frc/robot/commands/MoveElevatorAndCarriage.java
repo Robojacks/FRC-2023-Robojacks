@@ -36,8 +36,10 @@ public class MoveElevatorAndCarriage extends CommandBase {
     elevator.setSpeed((xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)-
     xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value))*.3);  
 
+    // multiplyng carriage speed by (26/36) == .7222 of the elevator speed 
+    // because the carriage is fully extended at 26 rotations and the elevator is fully extended at 36 rotations
     carriage.setSpeed((-xbox.getRawAxis(XboxController.Axis.kRightTrigger.value)+
-    xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value)) *.2);  
+    xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value)) *.3 * .6);  
   }
 
   // Called once the command ends or is interrupted.

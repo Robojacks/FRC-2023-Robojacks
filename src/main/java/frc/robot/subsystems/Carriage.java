@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
@@ -36,11 +37,13 @@ public class Carriage extends SubsystemBase {
     carriageMotor.set(speed);
   }
 
-  public Boolean isEncoderAtLowPosition (double goalPosition) {
+  /** Use isEncoderAtLowerBound if the motor is moving in a negative direction, otherwise use isEncoderAtUpperBound */
+  public Boolean isEncoderAtLowerBound (double goalPosition) {
     return carriageEncoder.getPosition() <= goalPosition;
   }
-
-  public Boolean isEncoderAtHighPosition (double goalPosition) {
+  
+  /** Use isEncoderAtUpperBound if the motor is moving in a positive direction, otherwise use isEncoderAtLowerBound */
+  public Boolean isEncoderAtUpperBound (double goalPosition) {
     return carriageEncoder.getPosition() >= goalPosition;
   }
 
@@ -48,7 +51,7 @@ public class Carriage extends SubsystemBase {
     return carriageEncoder.getPosition() + tolerance >= goalPosition && carriageEncoder.getPosition() - tolerance <= goalPosition;
   }
 
-  // returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint
+  /** Returns -1 or +1 depending on which direction the motor needs to run to get to the setpoint. */
   public double motorAutoSpeedSign (double goalPosition) {
     
     return (goalPosition - carriageEncoder.getPosition()) 
@@ -58,6 +61,11 @@ public class Carriage extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("Carriage Encoder Counts", carriageEncoder.getPosition());
+    SmartDashboard.putNumber("Motor Direction (to go to mid position)", motorAutoSpeedSign(-carriageMidRotations));
+
+
     // This method will be called once per scheduler run
   }
 }

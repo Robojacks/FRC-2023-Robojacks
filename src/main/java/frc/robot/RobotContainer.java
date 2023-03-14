@@ -108,21 +108,22 @@ public class RobotContainer {
 
   // MoveClaw Command
   private final MoveClaw moveClaw = new MoveClaw(claw);
-
-  // CollectingSetpoint Command
+ 
+  
+  // StartConfigSetpoint Command
   private final StartConfigSetpoint startConfigSetpoint = new StartConfigSetpoint(elevator, carriage, moveWristIn);
-
+/* 
   // CollectingSetpoint Command
   private final CollectingSetpoint collectingSetpoint = new CollectingSetpoint(elevator, carriage, moveWristOut);
-
+ 
   // LowShootSetpoint Command
   private final LowShootSetpoint lowShootSetpoint = new LowShootSetpoint(elevator, carriage, moveWristLevel);
 
   // MidShootSetpoint Command
   private final MidShootSetpoint midShootSetpoint = new MidShootSetpoint(elevator, carriage, moveWristLevel);
-  
+  */
   // HighShootSetpoint Command
-  private final HighShootSetpoint highShootSetpoint = new HighShootSetpoint(elevator, carriage, moveWristLevel);
+  //private final HighShootSetpoint highShootSetpoint = new HighShootSetpoint(elevator, carriage, moveWristLevel);
 
   // CloseClaw Command
   //private final CloseClaw closeClaw = new CloseClaw(claw);
@@ -163,8 +164,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // vision correction
-    new JoystickButton(xbox, kStart.value)
-    .whileTrue(new GoToTarget(rDrive));
+    /*new JoystickButton(xbox, kStart.value)
+    .whileTrue(new GoToTarget(rDrive));*/
 
     //auto balance
     new JoystickButton(xbox, kBack.value)
@@ -178,9 +179,9 @@ public class RobotContainer {
     new JoystickButton(xbox, kRightBumper.value)
     .onTrue(moveWristOut);
 
-    // wrist out *** this button is being used by start config -- need to rethink buttonmapping ***
-    /*new JoystickButton(xbox, kB.value)
-    .onTrue(moveWristLevel);*/
+    // wrist level *** the B button is being used by start config -- need to rethink buttonmapping ***
+    new JoystickButton(xbox, kStart.value)
+    .onTrue(moveWristLevel);
 
     // shoot
     new JoystickButton(xbox, kA.value)
@@ -193,7 +194,12 @@ public class RobotContainer {
     // move claw
     new JoystickButton(xbox, kY.value)
     .onTrue(moveClaw);
-
+ 
+      
+    // move to start config
+    new JoystickButton(xbox, kB.value)
+    .onTrue(startConfigSetpoint);
+/* 
     // move to low shoot setpoint when left POV pressed
     new Trigger(()-> {
       
@@ -204,11 +210,6 @@ public class RobotContainer {
       })
       .onTrue(lowShootSetpoint);
 
-    // move to start config
-    new JoystickButton(xbox, kB.value)
-    .onTrue(startConfigSetpoint);
-
-
     // move to mid shoot setpoint when right POV pressed
     new Trigger(()-> {
       
@@ -218,17 +219,17 @@ public class RobotContainer {
         return false;
       })
       .onTrue(midShootSetpoint);
-
+ */
     // move to high shoot setpoint when high POV pressed
-    new Trigger(()-> {
+    /*new Trigger(()-> {
       
       if(xbox.getPOV() == 0)
         return true;
       else
         return false;
       })
-      .onTrue(highShootSetpoint);
-
+      .onTrue(highShootSetpoint);*/
+ /* 
     // move to collecting setpoint when low POV pressed
     new Trigger(()-> {
       
@@ -238,7 +239,7 @@ public class RobotContainer {
         return false;
       })
       .onTrue(collectingSetpoint);
-
+*/
 
     /*// close claw
     new JoystickButton(xbox, kA.value)

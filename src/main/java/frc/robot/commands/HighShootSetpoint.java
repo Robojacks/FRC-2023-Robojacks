@@ -43,8 +43,8 @@ public class HighShootSetpoint extends SequentialCommandGroup {
         new RunCommand(() -> elevator.setSpeed(elevatorSpeed))
         .until(() -> elevator.isEncoderAtHighPosition(elevatorHighRotations)),
         
-        new RunCommand(() -> carriage.setSpeed(carriageSpeed))
-        .until(() -> carriage.isEncoderAtHighPosition(carriageHighRotations)),
+        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
+        .until(() -> carriage.isEncoderAtLowerBound(-carriageOutRotations)),
 
         moveWristLevel
 
@@ -52,6 +52,7 @@ public class HighShootSetpoint extends SequentialCommandGroup {
       
       new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),
       new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1)
+
 
     );
   }

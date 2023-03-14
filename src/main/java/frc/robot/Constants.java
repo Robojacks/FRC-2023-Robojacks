@@ -137,18 +137,20 @@ public final class Constants {
 	// values for wrist bang-bang controller
 
 	public static final double wristLevelRotations = 100;
-	public static final double wristInRotations = 0;
+	public static final double wristInRotations = 8;
 	public static final double wristOutRotations = 130;
 	
 	public static final double wristRotationsTolerance = 2;
 
-	public static final double wristSpeed = 0.3;
+	public static final double wristSpeed = 0.5;
 
 	// values for elevator bang-bang controller
 
 	public static final double elevatorLowRotations = 0;
-	public static final double elevatorMidRotations = 10;
-	public static final double elevatorHighRotations = 20;
+	// elevator mid is good at around 28.5 rotations
+	public static final double elevatorMidRotations = 28.5;
+	// aim for high elevator at 34 rotations
+	public static final double elevatorHighRotations = 33;
 	
 	public static final double elevatorRotationsTolerance = 2;
 
@@ -156,11 +158,11 @@ public final class Constants {
 
 	// values for carriage bang-bang controller
 
-	public static final double carriageStartConfigRotations = 0;
-
-	public static final double carriageLowRotations = 20;
-	public static final double carriageMidRotations = 10;
-	public static final double carriageHighRotations = 20;
+	public static final double carriageInRotations = 0;
+	// carriage mid is good at around -23 rotations
+	public static final double carriageMidRotations = 23;
+	// carriage is fully extended at -26 rotations
+	public static final double carriageOutRotations = 23;
 	
 	public static final double carriageRotationsTolerance = 2;
 

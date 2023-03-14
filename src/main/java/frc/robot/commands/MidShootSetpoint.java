@@ -45,15 +45,18 @@ public class MidShootSetpoint extends SequentialCommandGroup {
         new RunCommand(() -> elevator.setSpeed(elevator.motorAutoSpeedSign(elevatorMidRotations) * elevatorSpeed))
         .until(() -> elevator.isEncoderInRange(elevatorMidRotations, elevatorRotationsTolerance)),
         
-        new RunCommand(() -> carriage.setSpeed(carriage.motorAutoSpeedSign(carriageMidRotations) * carriageSpeed))
-        .until(() -> carriage.isEncoderInRange(carriageMidRotations, carriageRotationsTolerance)),
+        /*new RunCommand(() -> carriage.setSpeed(carriage.motorAutoSpeedSign(-carriageMidRotations) * -carriageSpeed))
+        .until(() -> carriage.isEncoderInRange(-carriageMidRotations, carriageRotationsTolerance))*/
 
-        moveWristLevel
+        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
+        .until(() -> carriage.isEncoderAtLowerBound(-carriageMidRotations))
 
+        //moveWristLevel
       ),
       
       new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),
       new RunCommand(() -> carriage.setSpeed(0)).withTimeout(.1)
+
 
     );
   }
