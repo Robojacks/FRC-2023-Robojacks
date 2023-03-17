@@ -178,7 +178,7 @@ public class RobotContainer {
     new JoystickButton(xbox, kRightBumper.value)
     .onTrue(mMoveWristOut);
 
-    // wrist level *** the B button is being used by start config -- need to rethink buttonmapping ***
+    // wrist level 
     new JoystickButton(xbox, kB.value)
     .onTrue(mMoveWristLevel);
 
@@ -193,13 +193,12 @@ public class RobotContainer {
     // move claw
     new JoystickButton(xbox, kY.value)
     .onTrue(moveClaw);
- 
       
     // move to start config
     new JoystickButton(xbox, kStart.value)
     .onTrue(startConfigSetpoint);
 
-    // move to mid shoot setpoint when right POV pressed
+    // move to mid shoot setpoint when right or left POV pressed
     new Trigger(()-> {
       
       if(xbox.getPOV() == 90 | xbox.getPOV() == 270)
