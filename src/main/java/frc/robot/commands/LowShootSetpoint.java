@@ -24,25 +24,26 @@ public class LowShootSetpoint extends SequentialCommandGroup {
   // subsystems
   private final Elevator elevator;
   private final Carriage carriage;
-  private final MoveWristLevel moveWristLevel;
+  private final MoveWristLevel1 moveWristLevel;
 
-
+  
   /** Creates a new MoveAndBalance. */
-  public LowShootSetpoint(Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel moveWristLevelCommand) {
+  public LowShootSetpoint (Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel1 moveWristLevelCommand) {
 
     elevator = elevatorSubsystem;
     carriage = carriageSubsystem;
     moveWristLevel = moveWristLevelCommand;
 
+
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+
       new ParallelCommandGroup(
 
         new RunCommand(() -> elevator.setSpeed(-elevatorSpeed))
         .until(() -> elevator.isEncoderAtLowPosition(elevatorLowRotations)),
         
-        /* change this to an inRange or high position so that carriage can extend */
         new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
         .until(() -> carriage.isEncoderAtLowerBound(-carriageOutRotations)),
 

@@ -16,14 +16,14 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class MoveWristLevel extends SequentialCommandGroup {
+public class MoveWristLevel1 extends SequentialCommandGroup {
 
   // Drive Subsystem
   private final Wrist wrist;
 
 
   /** Creates a new MoveAndBalance. */
-  public MoveWristLevel(Wrist wristSubsystem) {
+  public MoveWristLevel1(Wrist wristSubsystem) {
 
     wrist = wristSubsystem;
 

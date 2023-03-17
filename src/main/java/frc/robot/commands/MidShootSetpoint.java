@@ -25,11 +25,11 @@ public class MidShootSetpoint extends SequentialCommandGroup {
   // subsystems
   private final Elevator elevator;
   private final Carriage carriage;
-  private final MoveWristLevel moveWristLevel;
+  private final MoveWristLevel2 moveWristLevel;
 
 
   /** Creates a new MoveAndBalance. */
-  public MidShootSetpoint (Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel moveWristLevelCommand) {
+  public MidShootSetpoint (Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel2 moveWristLevelCommand) {
 
     elevator = elevatorSubsystem;
     carriage = carriageSubsystem;
@@ -49,9 +49,9 @@ public class MidShootSetpoint extends SequentialCommandGroup {
         .until(() -> carriage.isEncoderInRange(-carriageMidRotations, carriageRotationsTolerance))*/
 
         new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
-        .until(() -> carriage.isEncoderAtLowerBound(-carriageMidRotations))
+        .until(() -> carriage.isEncoderAtLowerBound(-carriageMidRotations)),
 
-        //moveWristLevel
+        moveWristLevel
       ),
       
       new RunCommand(() -> elevator.setSpeed(0)).withTimeout(.1),

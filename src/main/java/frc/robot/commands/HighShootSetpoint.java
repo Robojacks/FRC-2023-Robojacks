@@ -24,11 +24,11 @@ public class HighShootSetpoint extends SequentialCommandGroup {
   // subsystems
   private final Elevator elevator;
   private final Carriage carriage;
-  private final MoveWristLevel moveWristLevel;
+  private final MoveWristLevel3 moveWristLevel;
 
   
   /** Creates a new MoveAndBalance. */
-  public HighShootSetpoint (Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel moveWristLevelCommand) {
+  public HighShootSetpoint (Elevator elevatorSubsystem, Carriage carriageSubsystem, MoveWristLevel3 moveWristLevelCommand) {
 
     elevator = elevatorSubsystem;
     carriage = carriageSubsystem;
