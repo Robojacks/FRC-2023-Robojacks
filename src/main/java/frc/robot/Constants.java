@@ -57,18 +57,6 @@ public final class Constants {
 	// claw piston ports
 	public static final int kClawPistonPort = 15;
 
-	/** I have not yet tested these rotation speeds, and I put in 10 rotations as a default. 
-	 * Test and change these values as needed. */
-
-	/*// how many times the wrist should rotate to extend and retract
-	public static final double wristRotations = 130;
-	
-	// how many times the elevator should rotate to move from ground level to high node
-	public static final double elevatorHighRotations = 1;
-
-	// how many times the elevator should rotate to move from ground level to high node
-	public static final double elevatorMidRotations = 1;*/
-
 
 	/** ------ VISION TRACKING CONSTANTS ------ */
 
@@ -148,24 +136,30 @@ public final class Constants {
 
 	public static final double wristSpeed = 0.825;
 
+	
 	// values for elevator bang-bang controller
 
 	public static final double elevatorLowRotations = 1;
+	
 	// elevator mid is good at around 28.5 rotations
 	public static final double elevatorMidRotations = 28.5;
-	// aim for high elevator at 34 rotations
+	
+	// aim for high elevator at 33 rotations
 	public static final double elevatorHighRotations = 33;
 	
 	public static final double elevatorRotationsTolerance = 2;
 
 	public static final double elevatorSpeed = 0.3;
 
+	
 	// values for carriage bang-bang controller
 
 	public static final double carriageInRotations = 1;
+	
 	// carriage mid is good at around -23 rotations
 	public static final double carriageMidRotations = 23;
-	// carriage is fully extended at -26 rotations
+	
+	// carriage is fully extended at -23 rotations
 	public static final double carriageOutRotations = 23;
 	
 	public static final double carriageRotationsTolerance = 2;
