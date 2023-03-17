@@ -146,7 +146,7 @@ public final class Constants {
 
 	// values for elevator bang-bang controller
 
-	public static final double elevatorLowRotations = 0;
+	public static final double elevatorLowRotations = 1;
 	// elevator mid is good at around 28.5 rotations
 	public static final double elevatorMidRotations = 28.5;
 	// aim for high elevator at 34 rotations
@@ -158,7 +158,7 @@ public final class Constants {
 
 	// values for carriage bang-bang controller
 
-	public static final double carriageInRotations = 0;
+	public static final double carriageInRotations = 1;
 	// carriage mid is good at around -23 rotations
 	public static final double carriageMidRotations = 23;
 	// carriage is fully extended at -26 rotations

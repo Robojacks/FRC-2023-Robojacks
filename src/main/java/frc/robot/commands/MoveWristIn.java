@@ -32,7 +32,7 @@ public class MoveWristIn extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(() -> wrist.setSpeed(-wristSpeed))
+      new RunCommand(() -> wrist.setSpeed(-wristSpeed * 1.75))
       .until(() -> wrist.isEncoderAtInPosition(wristInRotations)),
       new RunCommand(() -> wrist.setSpeed(0)).withTimeout(.1)
 

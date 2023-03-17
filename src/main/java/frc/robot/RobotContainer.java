@@ -22,7 +22,6 @@ import frc.robot.commands.CollectingSetpoint;
 import frc.robot.commands.GoToTarget;
 import frc.robot.commands.HighShootSetpoint;
 import frc.robot.commands.Intake;
-import frc.robot.commands.LowShootSetpoint;
 import frc.robot.commands.MMoveWristIn;
 import frc.robot.commands.MMoveWristLevel;
 import frc.robot.commands.MMoveWristOut;
@@ -93,6 +92,21 @@ public class RobotContainer {
   // AutoBalance Command
   private final AutoBalance autoBalance = new AutoBalance(rDrive);
 
+  // MoveWrist Command
+  private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
+
+  // Shoot Command
+  private final Shoot shoot = new Shoot(shooter);
+
+  // Intake Command
+  private final Intake intake = new Intake(shooter);
+
+  // MoveClaw Command
+  private final MoveClaw moveClaw = new MoveClaw(claw);
+
+  /*** --- Move Wrist Duplicate Commands --- */
+      /* these are duplicated for each different command by which it is used */
+
   // MoveWrist Command (used with setpoints)
   private final MoveWristOut moveWristOut = new MoveWristOut(wrist);
 
@@ -116,18 +130,6 @@ public class RobotContainer {
 
   // Duplicate MoveWristLevel Command (used alone)
   private final MMoveWristLevel mMoveWristLevel = new MMoveWristLevel(wrist);
-
-  // MoveWrist Command
-  private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
-
-  // Shoot Command
-  private final Shoot shoot = new Shoot(shooter);
-
-  // Intake Command
-  private final Intake intake = new Intake(shooter);
-
-  // MoveClaw Command
-  private final MoveClaw moveClaw = new MoveClaw(claw);
  
   
   // StartConfigSetpoint Command
@@ -135,9 +137,6 @@ public class RobotContainer {
  
   // CollectingSetpoint Command
   private final CollectingSetpoint collectingSetpoint = new CollectingSetpoint(elevator, carriage, moveWristOut);
- 
-  // LowShootSetpoint Command
-  private final LowShootSetpoint lowShootSetpoint = new LowShootSetpoint(elevator, carriage, moveWristLevel1);
 
   // MidShootSetpoint Command
   private final MidShootSetpoint midShootSetpoint = new MidShootSetpoint(elevator, carriage, moveWristLevel2);
@@ -145,20 +144,6 @@ public class RobotContainer {
   // HighShootSetpoint Command
   private final HighShootSetpoint highShootSetpoint = new HighShootSetpoint(elevator, carriage, moveWristLevel3);
 
-
-  /* --- Default Commands --- */
-
-  // drive with controller 
-  /*private Command manualDrive = new RunCommand(
-    
-  // drive motors run in tank drive based on joystick inputs
-    () -> rDrive.getDifferentialDrive().tankDrive (
-      rDrive.deadband(-xbox.getRawAxis(kLeftY.value), percentDeadband), 
-      rDrive.deadband(xbox.getRawAxis(kRightY.value), percentDeadband),
-      true
-      ),
-    rDrive
-  );*/
 
   /* --- Container for the robot --- contains subsystems, OI devices, and commands */
   public RobotContainer() {
@@ -213,21 +198,11 @@ public class RobotContainer {
     // move to start config
     new JoystickButton(xbox, kStart.value)
     .onTrue(startConfigSetpoint);
- 
-    // move to low shoot setpoint when left POV pressed
-    new Trigger(()-> {
-      
-      if(xbox.getPOV() == 270)
-        return true;
-      else
-        return false;
-      })
-      .onTrue(lowShootSetpoint);
 
     // move to mid shoot setpoint when right POV pressed
     new Trigger(()-> {
       
-      if(xbox.getPOV() == 90)
+      if(xbox.getPOV() == 90 | xbox.getPOV() == 270)
         return true;
       else
         return false;

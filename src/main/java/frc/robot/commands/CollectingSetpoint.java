@@ -42,8 +42,8 @@ public class CollectingSetpoint extends SequentialCommandGroup {
         new RunCommand(() -> elevator.setSpeed(-elevatorSpeed))
         .until(() -> elevator.isEncoderAtLowPosition(elevatorLowRotations)),
         
-        new RunCommand(() -> carriage.setSpeed(-carriageSpeed))
-        .until(() -> carriage.isEncoderAtLowerBound(-carriageOutRotations)),
+        new RunCommand(() -> carriage.setSpeed(carriageSpeed))
+        .until(() -> carriage.isEncoderAtUpperBound(-carriageInRotations)),
 
         moveWristOut
 
