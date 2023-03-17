@@ -21,7 +21,7 @@ import frc.robot.commands.AutoMoveAndBalance;
 import frc.robot.commands.CollectingSetpoint;
 import frc.robot.commands.GoToTarget;
 import frc.robot.commands.HighShootSetpoint;
-import frc.robot.commands.Intake;
+import frc.robot.commands.IntakeSetSpeed;
 import frc.robot.commands.MMoveWristIn;
 import frc.robot.commands.MMoveWristLevel;
 import frc.robot.commands.MMoveWristOut;
@@ -29,11 +29,12 @@ import frc.robot.commands.MidShootSetpoint;
 import frc.robot.commands.MoveClaw;
 import frc.robot.commands.MoveElevatorAndCarriage;
 import frc.robot.commands.MoveWristOut;
+import frc.robot.commands.ShootAndIntake;
 import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristLevel1;
 import frc.robot.commands.MoveWristLevel2;
 import frc.robot.commands.MoveWristLevel3;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootAuto;
 import frc.robot.commands.StartConfigSetpoint;
 // import subsystems
 import frc.robot.subsystems.RevDrivetrain;
@@ -57,8 +58,11 @@ public class RobotContainer {
   
   
 
-  // Drive Controller
-  private XboxController xbox = new XboxController(kXboxPort);
+  // Drive Controller 1
+  private XboxController xbox1 = new XboxController(kXbox1Port);
+
+  // Drive Controller 2
+  private XboxController xbox2 = new XboxController(kXbox2Port);
 
   //Compressor phCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
@@ -87,19 +91,22 @@ public class RobotContainer {
   /** ------ COMMANDS ------ */
 
   //Drive Command
-  private final Drive drive = new Drive(xbox, rDrive);
+  private final Drive drive = new Drive(xbox1, rDrive);
 
   // AutoBalance Command
   private final AutoBalance autoBalance = new AutoBalance(rDrive);
 
   // MoveWrist Command
-  private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox, elevator, carriage);
+  private final MoveElevatorAndCarriage moveElevatorAndCarriage = new MoveElevatorAndCarriage(xbox2, elevator, carriage);
+
+  // ShootAuto Command
+  private final ShootAuto shootAuto = new ShootAuto(shooter);
 
   // Shoot Command
-  private final Shoot shoot = new Shoot(shooter);
+  private final ShootAndIntake shootAndIntake = new ShootAndIntake(xbox1, shooter);
 
-  // Intake Command
-  private final Intake intake = new Intake(shooter);
+  // IntakeSetSpeed Command
+  private final IntakeSetSpeed intakeSetSpeed = new IntakeSetSpeed(shooter);
 
   // MoveClaw Command
   private final MoveClaw moveClaw = new MoveClaw(claw);
@@ -114,7 +121,7 @@ public class RobotContainer {
   private final MoveWristIn moveWristIn = new MoveWristIn(wrist);
 
   // MoveWrist Command (used with setpoints)
-  private final MoveWristLevel1 moveWristLevel1 = new MoveWristLevel1(wrist);
+  //private final MoveWristLevel1 moveWristLevel1 = new MoveWristLevel1(wrist);
 
   // MoveWrist Command (used with setpoints)
   private final MoveWristLevel2 moveWristLevel2 = new MoveWristLevel2(wrist);
@@ -156,7 +163,7 @@ public class RobotContainer {
     //rDrive.setDefaultCommand(manualDrive);
     rDrive.setDefaultCommand(drive);
     elevator.setDefaultCommand(moveElevatorAndCarriage);
-    
+    shooter.setDefaultCommand(shootAndIntake);
 
   }
 
@@ -167,41 +174,59 @@ public class RobotContainer {
     .whileTrue(new GoToTarget(rDrive));*/
 
     //auto balance
-    new JoystickButton(xbox, kBack.value)
-    .whileTrue(autoBalance);
+    /*new JoystickButton(xbox1, kBack.value)
+    .whileTrue(autoBalance);*/
 
-    // wrist in
-    new JoystickButton(xbox, kLeftBumper.value)
+    // wrist in (xbox 2)
+    new JoystickButton(xbox2, kLeftBumper.value)
     .onTrue(mMoveWristIn);
 
-    // wrist out
-    new JoystickButton(xbox, kRightBumper.value)
+    // wrist out (xbox 1)
+    new JoystickButton(xbox1, kRightBumper.value)
     .onTrue(mMoveWristOut);
 
-    // wrist level 
-    new JoystickButton(xbox, kB.value)
+    // wrist out (xbox 2)
+    new JoystickButton(xbox2, kRightBumper.value)
+    .onTrue(mMoveWristOut);
+
+    // wrist level (xbox 2)
+    new JoystickButton(xbox2, kB.value)
     .onTrue(mMoveWristLevel);
 
-    // shoot
-    new JoystickButton(xbox, kA.value)
-    .onTrue(shoot);
+    // shoot auto
+    /*new JoystickButton(xbox1, kA.value)
+    .onTrue(shootAuto);*/
 
-    // intake
-    new JoystickButton(xbox, kX.value)
-    .whileTrue(intake);
+    // intake set speed
+    /*new JoystickButton(xbox1, kX.value)
+    .whileTrue(intakeSetSpeed);*/
 
-    // move claw
-    new JoystickButton(xbox, kY.value)
+    // move claw (xbox 1)
+    new JoystickButton(xbox1, kY.value)
+    .onTrue(moveClaw);
+
+    // move claw (xbox 2)
+    new JoystickButton(xbox2, kX.value)
     .onTrue(moveClaw);
       
-    // move to start config
-    new JoystickButton(xbox, kStart.value)
+    // move to start config (xbox 1)
+    new JoystickButton(xbox1, kLeftBumper.value)
     .onTrue(startConfigSetpoint);
 
+    // high shoot setpoint (xbox 2)
+    new JoystickButton(xbox2, kY.value)
+    .onTrue(highShootSetpoint);
+
+    // mid shoot setpoint (xbox 2)
+    new JoystickButton(xbox2, kA.value)
+    .onTrue(midShootSetpoint);
+
+
+    /* 
     // move to mid shoot setpoint when right or left POV pressed
     new Trigger(()-> {
       
-      if(xbox.getPOV() == 90 | xbox.getPOV() == 270)
+      if(xbox1.getPOV() == 90 | xbox1.getPOV() == 270)
         return true;
       else
         return false;
@@ -211,7 +236,7 @@ public class RobotContainer {
     // move to high shoot setpoint when high POV pressed
     new Trigger(()-> {
       
-      if(xbox.getPOV() == 0)
+      if(xbox1.getPOV() == 0)
         return true;
       else
         return false;
@@ -221,12 +246,12 @@ public class RobotContainer {
     // move to collecting setpoint when low POV pressed
     new Trigger(()-> {
       
-      if(xbox.getPOV() == 180)
+      if(xbox1.getPOV() == 180)
         return true;
       else
         return false;
       })
-      .onTrue(collectingSetpoint);
+      .onTrue(collectingSetpoint);*/
 
   }
 

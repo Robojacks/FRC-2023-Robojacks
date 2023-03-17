@@ -16,25 +16,25 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class Shoot extends SequentialCommandGroup {
+public class ShootAuto extends SequentialCommandGroup {
 
   // Drive Subsystem
   private final Shooter shooter;
 
 
   /** Creates a new MoveAndBalance. */
-  public Shoot(Shooter shooterSubsystem) {
+  public ShootAuto(Shooter shooterSubsystem) {
 
     shooter = shooterSubsystem;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(() -> shooter.move(shooterSpeedInitialPercent *.3))
+      new RunCommand(() -> shooter.setSpeed(shooterSpeedInitialPercent *.3))
       .until(() -> shooter.isEncoderAtPosition(shooterRotationsInitial)),
-      new RunCommand(() -> shooter.move(shooterSpeedFinalPercent *.3))
+      new RunCommand(() -> shooter.setSpeed(shooterSpeedFinalPercent *.3))
       .until(() -> shooter.isEncoderAtPosition(shooterRotationsFinal)),
-      new RunCommand(() -> shooter.move(0)).withTimeout(1)
+      new RunCommand(() -> shooter.setSpeed(0)).withTimeout(1)
     );
   }
 }

@@ -16,9 +16,9 @@ public class MoveElevatorAndCarriage extends CommandBase {
   private final XboxController xbox;
 
   /** Creates a new MoveElevator. */
-  public MoveElevatorAndCarriage(XboxController controller, Elevator elevatorSubsystem, Carriage carriageSubsystem) {
+  public MoveElevatorAndCarriage(XboxController controller2, Elevator elevatorSubsystem, Carriage carriageSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    xbox = controller;
+    xbox = controller2;
     elevator = elevatorSubsystem;
     carriage = carriageSubsystem;
     addRequirements(elevator, carriage);

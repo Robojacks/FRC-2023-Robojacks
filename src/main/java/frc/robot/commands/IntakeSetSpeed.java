@@ -6,35 +6,39 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Shooter;
 
-public class OpenClaw extends CommandBase {
+public class IntakeSetSpeed extends CommandBase {
   /** Creates a new CloseClaw. */
 
-  private final Claw claw; 
+  private final Shooter shooter; 
 
-  public OpenClaw(Claw clawSubsystem) {
+  public IntakeSetSpeed(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    claw = clawSubsystem;
+    shooter = shooterSubsystem;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    
   }
-
+  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // run the shooter 
+    shooter.setSpeed(-.5 *.3);
     
-    // move the pistons into the open position 
-    claw.setClawPosition(false);
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // stop the shooter 
+    shooter.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -52,7 +52,7 @@ public class Shooter extends SubsystemBase {
       return LShooterEncoder.getPosition() >= position | LShooterEncoder.getPosition() >= position;
   }
 
-  public void move(double speed) {
+  public void setSpeed(double speed) {
     LShooterMotor.set(speed);
     RShooterMotor.set(speed);
 

@@ -20,8 +20,12 @@ public final class Constants {
     
     /*** ------ Port Numbers ------ */
 
-	// xbox controller port
-	public static final int kXboxPort = 0;
+	// xbox 1 controller port
+	public static final int kXbox1Port = 0;
+
+	// xbox 2 controller port
+	public static final int kXbox2Port = 1;
+
 
 	// drive motor ports
 	public static final int kLeftFrontPort = 24;
@@ -142,7 +146,7 @@ public final class Constants {
 	
 	public static final double wristRotationsTolerance = 2;
 
-	public static final double wristSpeed = 0.5;
+	public static final double wristSpeed = 0.825;
 
 	// values for elevator bang-bang controller
 
