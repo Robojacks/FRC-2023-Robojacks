@@ -32,6 +32,10 @@ public class Wrist extends SubsystemBase {
     wristMotor.burnFlash();
   }
 
+  public double GetPosition() {
+    return wristEncoder.getPosition();
+  }
+  
   public RelativeEncoder getWristEncoder () {
     return wristEncoder;
   }

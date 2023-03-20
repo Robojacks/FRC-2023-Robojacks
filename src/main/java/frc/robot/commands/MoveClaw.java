@@ -23,7 +23,7 @@ public class MoveClaw extends CommandBase {
   @Override
   public void initialize() {
     // move the pistons into the closed position 
-    DriverStation.reportError("****************TOGLE***********", false);
+    DriverStation.reportError("****************TOGGLE***********", false);
     claw.toggleSol();
     //claw.openClaw();
 

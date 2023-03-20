@@ -38,6 +38,11 @@ public class Elevator extends SubsystemBase {
     rElevatorMotor.burnFlash();
   }
 
+  public double GetPosition() {
+    return lElevatorEncoder.getPosition();
+
+  }
+
   public RelativeEncoder getlElevatorEncoder () {
     return lElevatorEncoder;
   }

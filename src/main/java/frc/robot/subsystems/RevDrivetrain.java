@@ -33,6 +33,8 @@ public class RevDrivetrain extends SubsystemBase {
 
   public RevDrivetrain() {
     
+    roboDrive.setSafetyEnabled(false);
+    
     LFrontWheel.restoreFactoryDefaults();
     LFrontWheel.setIdleMode(IdleMode.kBrake);
     LFrontWheel.burnFlash();

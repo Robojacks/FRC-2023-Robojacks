@@ -33,6 +33,10 @@ public class Carriage extends SubsystemBase {
     carriageMotor.burnFlash();
   }
 
+  public double GetPosition() {
+    return carriageEncoder.getPosition();
+  }
+
   public void setSpeed(double speed) {
     carriageMotor.set(speed);
   }

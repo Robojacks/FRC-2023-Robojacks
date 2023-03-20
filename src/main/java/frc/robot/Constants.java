@@ -146,6 +146,8 @@ public final class Constants {
 	
 	// aim for high elevator at 33 rotations
 	public static final double elevatorHighRotations = 33;
+
+	public static final double elevatorSubstationRotations = 33;
 	
 	public static final double elevatorRotationsTolerance = 2;
 

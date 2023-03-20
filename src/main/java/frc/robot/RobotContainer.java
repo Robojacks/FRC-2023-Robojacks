@@ -7,17 +7,30 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
 // import Xbox Controller and related buttons and axes
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 
 // import commands
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Drive;
+import frc.robot.commands.PIDElevatorSet;
 import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoMidConeAndAlign;
 import frc.robot.commands.AutoMoveAndBalance;
+import frc.robot.commands.PIDCarriageSet;
 import frc.robot.commands.CollectingSetpoint;
 import frc.robot.commands.GoToTarget;
 import frc.robot.commands.HighShootSetpoint;
@@ -34,8 +47,11 @@ import frc.robot.commands.MoveWristIn;
 import frc.robot.commands.MoveWristLevel1;
 import frc.robot.commands.MoveWristLevel2;
 import frc.robot.commands.MoveWristLevel3;
+import frc.robot.commands.MoveWristLevel4;
 import frc.robot.commands.ShootAuto;
 import frc.robot.commands.StartConfigSetpoint;
+import frc.robot.commands.SubstationSetpoint;
+import frc.robot.commands.PIDWrist;
 // import subsystems
 import frc.robot.subsystems.RevDrivetrain;
 import frc.robot.subsystems.Shooter;
@@ -55,8 +71,9 @@ import static frc.robot.Constants.*;
  */
 
 public class RobotContainer {
-  
-  
+
+  SendableChooser<Command> autoChooser = new SendableChooser<>();
+  private Command m_autoSelected;
 
   // Drive Controller 1
   private XboxController xbox1 = new XboxController(kXbox1Port);
@@ -129,6 +146,9 @@ public class RobotContainer {
   // MoveWrist Command (used with setpoints)
   private final MoveWristLevel3 moveWristLevel3 = new MoveWristLevel3(wrist);
 
+  // MoveWrist Command (used with setpoints)
+  private final MoveWristLevel4 moveWristLevel4 = new MoveWristLevel4(wrist);
+
   // Duplicate MoveWristOut Command (used alone)
   private final MMoveWristOut mMoveWristOut = new MMoveWristOut(wrist);
 
@@ -151,19 +171,26 @@ public class RobotContainer {
   // HighShootSetpoint Command
   private final HighShootSetpoint highShootSetpoint = new HighShootSetpoint(elevator, carriage, moveWristLevel3);
 
+   private final SubstationSetpoint substationSetpoint = new SubstationSetpoint(elevator, carriage, moveWristLevel4);
 
   /* --- Container for the robot --- contains subsystems, OI devices, and commands */
   public RobotContainer() {
 
+    ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
+
+    autoChooser.setDefaultOption("Auto 1", auto1());
+    autoChooser.addOption("Auto 2", auto2());
+
+    autoTab.add(autoChooser);
 
     // configure the button bindings
     configureButtonBindings();
 
-    // run manualDrive and moveElevatorAndCarriage as the default commands
-    //rDrive.setDefaultCommand(manualDrive);
+    // Default Commands
+
     rDrive.setDefaultCommand(drive);
-    elevator.setDefaultCommand(moveElevatorAndCarriage);
     shooter.setDefaultCommand(shootAndIntake);
+    //elevator.setDefaultCommand(moveElevatorAndCarriage);
 
   }
 
@@ -173,7 +200,7 @@ public class RobotContainer {
     /*new JoystickButton(xbox, kStart.value)
     .whileTrue(new GoToTarget(rDrive));*/
 
-    //auto balance
+    // auto balance
     /*new JoystickButton(xbox1, kBack.value)
     .whileTrue(autoBalance);*/
 
@@ -192,14 +219,6 @@ public class RobotContainer {
     // wrist level (xbox 2)
     new JoystickButton(xbox2, kB.value)
     .onTrue(mMoveWristLevel);
-
-    // shoot auto
-    /*new JoystickButton(xbox1, kA.value)
-    .onTrue(shootAuto);*/
-
-    // intake set speed
-    /*new JoystickButton(xbox1, kX.value)
-    .whileTrue(intakeSetSpeed);*/
 
     // move claw (xbox 1)
     new JoystickButton(xbox1, kY.value)
@@ -221,37 +240,9 @@ public class RobotContainer {
     new JoystickButton(xbox2, kA.value)
     .onTrue(midShootSetpoint);
 
-
-    /* 
-    // move to mid shoot setpoint when right or left POV pressed
-    new Trigger(()-> {
-      
-      if(xbox1.getPOV() == 90 | xbox1.getPOV() == 270)
-        return true;
-      else
-        return false;
-      })
-      .onTrue(midShootSetpoint);
- 
-    // move to high shoot setpoint when high POV pressed
-    new Trigger(()-> {
-      
-      if(xbox1.getPOV() == 0)
-        return true;
-      else
-        return false;
-      })
-      .onTrue(highShootSetpoint);
-  
-    // move to collecting setpoint when low POV pressed
-    new Trigger(()-> {
-      
-      if(xbox1.getPOV() == 180)
-        return true;
-      else
-        return false;
-      })
-      .onTrue(collectingSetpoint);*/
+    // substation setpoint (xbox 2)
+    new JoystickButton(xbox2, kLeftStick.value)
+    .onTrue(substationSetpoint);
 
   }
 
@@ -263,10 +254,50 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    
-    return new AutoMoveAndBalance(rDrive, autoBalance);
-
+    m_autoSelected = autoChooser.getSelected();
+    return m_autoSelected;
   }
+
+  private Command auto1() {
+    return new SequentialCommandGroup(
+
+      new ParallelCommandGroup(
+        new PIDElevatorSet(elevator, elevatorHighRotations),
+        new PIDCarriageSet(carriage, -carriageOutRotations),
+        new PIDWrist(wrist, wristLevelRotations)
+      ),
+
+      new InstantCommand(() -> claw.closeClaw()),
+      new WaitCommand(.5),
+      
+      new ParallelCommandGroup(
+        new PIDElevatorSet(elevator, elevatorLowRotations),
+        new PIDCarriageSet(carriage, -carriageInRotations),
+        new PIDWrist(wrist, wristInRotations)
+      ),
+
+      //new ParallelCommandGroup(
+        new RunCommand(() -> rDrive.drive(.5, .5), rDrive)
+        .withTimeout(4.3),
+         /*.until(() -> rDrive.isEncoderAtPosition(autoMoveRotations))*/
+         //new WristSet(wrist, wristOutRotations)
+      //)
+
+      new RunCommand(() -> rDrive.drive(-.5, .5), rDrive)
+      .withTimeout(1.75)/*,
+      
+      new ParallelCommandGroup(
+        new RunCommand(() -> rDrive.drive(-.3, -.3), rDrive),
+        new RunCommand(() -> shooter.setSpeed(.7), shooter)
+      ).withTimeout(1)*/
+
+    );
+  }
+
+  private Command auto2() {
+    return null;
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
